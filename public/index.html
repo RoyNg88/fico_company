@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -24,20 +22,175 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+</head>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<body>
+    <!--HEADER-->
+    <section>
+        <header class="nav_container">
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+            <div class="logo">
+                <a href="/index.html">
+                    <img src="fico.png" alt="">
+                </a>
+            </div>
+
+            <nav>
+                <ul class="nav_menu">
+
+                    <li><a class="nav_links" href="#">Search</a></li>
+                    <li><a class="nav_links" href="#">Fundraiser</a></li>
+                    <li><a class="nav_links" href="#">Discover</a></li>
+                    <li><a class="nav_links" href="#">Support</a></li>
+                </ul>
+            </nav>
+
+            <div class="login_btn"><button><a href="#">Log in</a></button></div>
+            <div class="register_btn"><button><a href="#">Register</a></button></div>
+        </header>
+    </section>
+    <!-- TOP COVER -->
+    <section class="static_header">
+        <div class="header_text">
+            The largest community of photo enthusiasts.
+            <div class="join_btn"><button><a href="#">Join Us</a></button></div>
+
+        </div>
+    </section>
+
+    <!--FUNDRAISER-->
+    <section>
+
+        <div class="middle_content">
+            <h1 style="margin-left: 120px">Top Fundraiser</h1>
+        </div>
+        <div class="middle_content">
+
+            <div class="middle_item">
+                <img src=" tree.jpg " alt=" ">
+                <h3>Lorem ipsum</h3>
+                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit enim ipsam voluptatem quia voluptas sit aspernatur
+                </p>
+            </div>
+
+            <div class="middle_item">
+                <img src=" tree.jpg " alt=" ">
+                <h3>Lorem ipsum</h3>
+                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit enim ipsam voluptatem quia voluptas sit aspernatur</p>
+            </div>
+            <div class="middle_item">
+                <img src=" tree.jpg " alt=" ">
+                <h3>Lorem ipsum</h3>
+                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit enim ipsam voluptatem quia voluptas sit aspernatur</p>
+            </div>
+        </div>
+
+        <div class="middle_content">
+
+            <div class="middle_item">
+                <img src=" tree.jpg " alt=" ">
+                <h3>Lorem ipsum</h3>
+                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit enim ipsam voluptatem quia voluptas sit aspernatur
+                </p>
+            </div>
+
+            <div class="middle_item">
+                <img src=" tree.jpg " alt=" ">
+                <h3>Lorem ipsum</h3>
+                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit enim ipsam voluptatem quia voluptas sit aspernatur</p>
+            </div>
+            <div class="middle_item">
+                <img src=" tree.jpg " alt=" ">
+                <h3>Lorem ipsum</h3>
+                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit enim ipsam voluptatem quia voluptas sit aspernatur</p>
+            </div>
+        </div>
+    </section>
+    <!--JOIN TODAY-->
+    <section>
+        <div class="jumbotron">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Lorem ipsum</h1>
+                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+                    sequi nesciunt. Neque porro quisquam est, qui dolorem.</p>
+                    <div class="join_btn" style=" margin-top: 100px"><button><a href="">Join Today</a></button></div>
+                </div>
+                <div>
+                    <img style="float: right;" src=" tree.jpg " alt=" ">
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!--CONTACT US-->
+    <section>
+        <div class="jumbotron ">
+            <div class="row ">
+                <div class="col-md-6 ">
+                    <p style="font-size: 36px; ">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    </p>
+                </div>
+                <div class="contact_btn "><button><a href="# ">Contact Us</a></button></div>
+            </div>
+
+        </div>
+
+
+    </section>
+    <!--FOOTER-->
+    <section>
+        <footer class="nav_container ">
+            <nav>
+                <ul class="nav_menu">
+
+                    <li><a class="nav_links" style="color: black; font-weight: bold;" href="# ">Mobile App</a></li>
+                    <li><a class="nav_links" style="color: black; font-weight: bold;" href="# ">Community</a></li>
+                    <li><a class="nav_links" style="color: black; font-weight: bold;" href="# ">Company</a></li>
+
+                </ul>
+            </nav>
+            <div class="logo ">
+                <a href="/index.html">
+                    <img class="text-align: center; vertical-align: middle;" src="fico.png">
+                    </img>
+                </a>
+
+            </div>
+            <nav>
+                <ul class="nav_menu ml-auto" style="margin-right: 100px;">
+
+                    <li><a class="nav_links" style="color: black; font-weight: bold;" href="# ">Help desk</a></li>
+                    <li><a class="nav_links" style="color: black; font-weight: bold;" href="# ">Blog</a></li>
+                    <li><a class="nav_links" style="color: black; font-weight: bold;" href="# ">Resources</a></li>
+                </ul>
+            </nav>
+
+        </footer>
+
+        <div class="social_menu ">
+            <ul class="social_menu ">
+                <li><img src="fb.png " alt=" "></li>
+                <li><img src="ig.png " alt=" "></li>
+                <li><img src="youtube.png " alt=" "></li>
+                <li><img src="google.jpg " alt=" "></li>
+            </ul>
+
+        </div>
+
+        <div class="social_menu ">
+            <p>© Photo, Inc. 2019. We love our users!</p>
+        </div>
+
+    </section>
+</body>
+
 </html>
