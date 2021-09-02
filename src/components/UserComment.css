@@ -1,0 +1,65 @@
+
+#content_cmt{
+    position: absolute;
+    left: 3.63%;
+    top: 150.0%;
+    bottom: -0.76%;
+    width: 700px;
+
+}
+
+
+
+
+
+.avatar_user{
+    position: absolute;
+    left: 10%;
+    border-radius: 70%;
+    width: 40px;
+    height: 35px;
+}
+
+.username_css{
+    position:absolute;
+    left: 18%;
+}
+
+
+.date_css{
+    position: absolute;
+    font-size: x-small;
+    color: gray;
+    left: 18%;
+    margin-top: 3%;
+}
+
+.cmt_css{
+    position: absolute;
+    font-size: small;
+    left: 17%;
+    margin-top: 7%;
+    border-bottom: 2px solid gray;
+    color:gray;
+
+}
+
+.btn_css{
+    background-color: white;
+    color:#ff4500;
+    margin-right: 1%;
+    border-radius: 12px;
+    border-color: #ff4500;
+    margin-bottom: 1%;
+    height:30px;
+    font-size: 5pt;
+    width:50px;
+
+    
+}
+
+.btn_edit{
+    position: relative;
+    left:-40%;
+    margin-bottom: 2%;
+}

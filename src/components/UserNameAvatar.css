@@ -1,0 +1,27 @@
+.UserNameAvatar{
+    position: absolute;
+    left: 10.63%;
+    
+    top: 100.0%;
+    bottom: -0.76%;
+    
+}
+
+.userName{
+    position: relative;
+   left: 15%;
+   top: 70%;
+    
+    
+    }
+    
+.userAvatar{
+    position: absolute;
+    left: -55.63%;
+    
+    top: 1.0%;
+    bottom: -0.76%;
+    border-radius: 70%;
+    width: 40px;
+    height: 35px;
+}
