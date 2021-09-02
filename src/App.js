@@ -1,23 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import Banner from './components/Banner.js'
+import Poster from './components/Poster';
+import UserInformation from './components/UserInformation';
+import UserNameAvatar from './components/UserNameAvatar';
+import Donate from './components/Donate';
+import UserComment from './components/UserComment';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Banner></Banner>
+     <Poster></Poster>
+     <UserNameAvatar></UserNameAvatar>
+     <UserInformation></UserInformation>
+     <Donate></Donate>
+     <UserComment></UserComment>
+     
     </div>
   );
 }
