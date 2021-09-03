@@ -5,14 +5,27 @@ const FundraiserSchema = new mongoose.Schema({
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "Admin",
     // },
-    title: String,
-    category: String,
-    name: String,
-    address: String,
-    date: String,
-    donate: String,
-    information: String,
-    image: String, 
+    title: {
+        type: String,
+        required: true},
+    category:  {
+        type: String,
+        required: true},
+    name:  {
+        type: String,
+        required: true},
+    address:  {
+        type: String,
+        required: true},
+    donate:  {
+        type: String,
+        required: true},
+    information:  {
+        type: String,
+        required: true},
+    image:  {
+        type: String,
+        required: true}, 
     datePosted: {
         type: Date,
         default: new Date()
@@ -22,15 +35,6 @@ const FundraiserSchema = new mongoose.Schema({
     //         type: mongoose.Schema.Types.ObjectId,
     //         ref: "admin",
     //     },
-    //     content: {
-    //         type: String,
-    //         required: true
-    //     },
-    //     created_at: {
-    //         type: Date,
-    //         default: Date.now
-    //     }
-    // }]
 });
 
 

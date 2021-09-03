@@ -8,6 +8,7 @@ const multer = require('multer');
 const fs = require('fs')
 // const auth = require('../middleware/auth')
 const sharp = require('sharp')
+const auth = require("../middleware/verifyToken");
 
 
 
@@ -45,6 +46,9 @@ let upload = multer({
                 START: Router
 ---------------------------------------------------- */
 
+
+// GET Fundraiser
+
 router.get('/',  (req, res) => {
     Fundraiser.find({})
         // .populate('postedBy')
@@ -69,9 +73,9 @@ router.get('/:id', function (req, res) {
     })
 })
 
+// CREATE Fundraiser
 
-
-router.post('/', upload.single('image'), (req, res) => {    
+router.post('/', auth,upload.single('image'), (req, res) => {    
     if(req.file){
     if(req.body.id){
     let path = "/" + req.file.path.split("\\").join("/")
@@ -114,7 +118,9 @@ router.post('/', upload.single('image'), (req, res) => {
     }
 })    
 
-router.put('/:_id', upload.single('image'), (req, res) => {
+// UPDATE Fundraiser
+
+router.put('/:_id', auth, upload.single('image'), (req, res) => {
 
     if (req.file) {
         if (req.body._id) {
@@ -153,8 +159,9 @@ router.put('/:_id', upload.single('image'), (req, res) => {
 
 })
 
+// DELETE Fundraiser
 
-router.delete('/:_id', (req, res) => {
+router.delete('/:_id', auth, (req, res) => {
     
     Fundraiser.findOne({ _id: req.params._id }, (err, fundraiser) => {
         if (err) {
@@ -177,6 +184,8 @@ router.delete('/:_id', (req, res) => {
         })
 
 })
+
+// SEARCH
 let search = require('./controller/search');
 router.get('/search', search)
 /* ----------------------------------------------------

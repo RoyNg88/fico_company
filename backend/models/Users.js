@@ -5,24 +5,20 @@ const router = app.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../schemas/user');
 const fs = require('fs')
-const auth = require("../middleware/auth");
+const auth = require("../middleware/verifyToken");
 const sharp = require('sharp');
 
-router.get('/', (req, res, next) => {
+
+// GET
+router.get('/', auth, (req, res, next) => {
    User.find({}, (err, users) => {
       if (err) return next(err);
       res.send(users);
    })
 })
 
-// router.get('/name', (req, res, next) => {
-//    User.find({ name: { $regex: req.query.s } }, (err, users) => {
-//       if (err) return next(err);
-//       res.send(users);
-//    })
-// })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', auth, (req, res, next) => {
    User.find({ _id: req.query.s }, (err, user) => {
     if (user){
         res.send(user)
@@ -33,19 +29,14 @@ router.get('/:id', (req, res, next) => {
     })
 })
 
-// router.get('/username', (req, res, next) => {
-//    User.find({ username: { $regex: req.query.s } }, (err, users) => {
-//       if (err) return next(err);
-//       res.send(users);
-//    })
-// })
 
-router.delete('/:id', auth, (req, res) => {
+//DELETE
+router.delete('/:_id', auth, (req, res) => {
     User.findOne({id: req.params.id}, function(err, user){
         if(err){ handleError(err)}
-        else if(user.user_Photo) {
-            if(typeof user.user_Photo !== 'undefined' && user.user_Photo !== '' && user.user_Photo.indexOf('/uploads/users/default_profile') === -1){
-                fs.unlinkSync('.'+user.user_Photo);
+        else if(user.profilePicture) {
+            if(typeof user.profilePicture !== 'undefined' && user.profilePicture !== '' && user.profilePicture.indexOf('/uploads/users/default_profile') === -1){
+                fs.unlinkSync('.'+user.profilePicture);
             }
         }
     })
@@ -53,68 +44,106 @@ router.delete('/:id', auth, (req, res) => {
         res.send(result)
     })
 })
+router.delete('/:_id', auth, async (req, res) => {
+    if (req.user._id === req.params._id && req.user.isAdmin) {
+      try {
+        await User.findByIdAndDelete({ _id: req.params._id })
+        res.status(200).send("Account has been deleted")
+      } catch (err) {
+        return res.status(500).send(err)
+      }
+    } else {
+      return res.status(403).send("You can only delete your account!")
+    }
+  })
 
-router.put('/:id', auth, async (req, res, next) => {
+// UPDATE
+// router.put('/:_id', auth, async (req, res) => {
+//     if (req.params._id == req.user._id || req.user.isAdmin) {
+//       console.log(req.user._id)
+//       // Hash password
+//       if (req.body.password) {
+//         try {
+//           const salt = await bcrypt.genSaltSync(10)
+//           req.body.password = await bcrypt.hash(req.body.password, salt)
+//         } catch (err) {
+//           return res.status(500).send(err)
+//         }
+//       }
+  
+//       try {
+//         await User.findByIdAndUpdate(req.params._id, {
+//           $set: req.body
+//         })
+//         res.status(200).send('Account has been updated')
+//       } catch (err) {
+//         return res.status(500).send(err)
+//       }
+  
+//     } else {
+//       console.log(req.body._id)
+//       return res.status(403).send("Only update your account")
+//     }
+//   })
+
+router.put('/:_id', auth, async (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
+    // Hash password
+    if (req.body.password) {
+          const salt = await bcrypt.genSaltSync(10)
+          req.body.password = await bcrypt.hash(req.body.password, salt)
+      }
     if(req.file){
-        User.findOne({id: req.params.id}, function(err, user){
-            if(err) handleError(err)
-            fs.unlinkSync('.'+user.user_Photo)
+    // UPLOAD Image
+        User.findOne(req.params._id, function(err, user){
+    if(err) handleError(err)
+        fs.unlinkSync('.'+user.profilePicture)
         } )
-    var path = "/" + req.file.path.split("\\").join("/")
-    console.log(req.file);
-    sharp(req.file.path).resize(256, 256).toFile('./uploads/users/' + '256x256-' + req.file.filename , function(err) {
-        if (err) {
+        const path = "/" + req.file.path.split("\\").join("/")
+        console.log(req.file);
+        sharp(req.file.path).resize(256, 256).toFile('./uploads/users/' + '256x256-' + req.file.filename , function(err) {
+    if (err) {
             console.error('sharp>>>', err)
         }
         console.log('Resize successfully')
         fs.unlinkSync('.'+path)
         });
         console.log(path)
-        User.findOneAndUpdate({id: req.params.id.toLowerCase()},{
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password,
-        user_Photo: path.replace(req.file.filename, '256x256-' + req.file.filename)
+        User.findByIdAndUpdate(req.params._id,{
+         name: req.body.name,
+         email: req.body.email,
+         password: req.body.password,
+         profilePicture: path.replace(req.file.filename, '256x256-' + req.file.filename)
     }, 
         function(err, result){
-        res.send(result)
+            res.status(200).send('Account has been updated')
     })
     }
+    
+// ------------------------
     else{
-        User.findOneAndUpdate({id: req.params.id.toLowerCase()},{
-            name: req.body.name,
-            username: req.body.username,
-            password: req.body.password,
+        User.findByIdAndUpdate( req.params._id,{
+         name: req.body.name,
+         email: req.body.email,
+         password: req.body.password
         }, 
-            function(err, result){
-            res.send(result)
-        })
+           function(err, result){
+           res.status(200).send('Account has been updated')}
+        )
 
-    }
+    }}else {
+        console.log(req.body._id)
+        return res.status(403).send("Only update your account")
+      }
  }) 
 
-// router.put('/password', auth, async (req, res, next) => {
-//    try {
-//       let salt = await bcrypt.genSalt(10);
-//       let encryptedPass = await bcrypt.hash(req.body.password, salt);
-//       User.findOneAndUpdate({ _id: req.body.id }, {password: encryptedPass}, (err, user) => {
-//          if (err) return next(err);
-//          res.send(user);
-//       }
-//       )
-//    }
-//    catch (e) {
-//       console.log(e);
-//    }
-// })
-
+// CREATE
 router.post('/', auth, async (req, res, next) => {
    try {
       let salt = await bcrypt.genSalt(10);
       let encryptedPass = await bcrypt.hash(req.body.password, salt);
       let userObj = {
          name: req.body.name,
-         username: req.body.username,
          email: req.body.email,
          password: encryptedPass
       }
