@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Poster.css';
+
 class Poster extends Component{
         render(){
             return(

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./UserComment.css";
+
 
 class UserComment extends Component{
         render(){

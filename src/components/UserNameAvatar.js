@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './UserNameAvatar.css';
+
 
 class UserNameAvatar extends Component{
         render(){
