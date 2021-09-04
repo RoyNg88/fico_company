@@ -68,7 +68,7 @@
     position: absolute;
     left: 4%;
     right: 36.73%;
-    top: 42%;
+    top: 45%;
     bottom: 52.87%;
     
     border: 1px solid rgba(0, 0, 0, 0.3);
@@ -78,11 +78,11 @@
     }
 
 
-    .UserNameAvatar{
+    #UserNameAvatar{
       position: absolute;
       left: 10.63%;
       
-      top: 100.0%;
+      top: 107.0%;
       bottom: -0.76%;
       
   }
@@ -90,7 +90,8 @@
   .userName{
       position: relative;
      left: 15%;
-     top: 70%;
+     top: 7px;
+     
       
       
       }
@@ -108,11 +109,11 @@
 
 
 
-  .UserInformation{
+  #UserInformation{
     
     position: absolute;
     left: 3.63%;
-    top: 105.0%;
+    top: 112.0%;
     bottom: -0.76%;
     width: 700px;
     border-top: 3px solid  #C4C4C4;
@@ -133,7 +134,7 @@
 #content_cmt{
   position: absolute;
   left: 3.63%;
-  top: 150.0%;
+  top: 160.0%;
   bottom: -0.76%;
   width: 700px;
 
@@ -175,24 +176,44 @@
 
 }
 
-.btn_css{
+.btn_css:hover,
+		.btn:focus {
+			box-shadow: inset 0 0 0 2em var(--hover);
+		}
+    .btn_css {
+			--color: #ff4500;
+			--hover: #ff4500;}
+
+.btn_css {
+
+ 
+  margin-right: 1%;
+
   background-color: white;
-  color:#ff4500;
+  font-weight: bolder ;
   margin-right: 1%;
   border-radius: 12px;
   border-color: #ff4500;
   margin-bottom: 1%;
   height:30px;
-  font-size: 5pt;
+  font-size: 6pt;
   width:50px;
-
+  margin-bottom: 1%;
+  height:30px;
+  width:50px;
+  
   
 }
 
+
+
+
 .btn_edit{
+  
   position: relative;
   left:-40%;
   margin-bottom: 2%;
+  
 }
 
 
@@ -200,7 +221,7 @@
   position: absolute;
   left: 66.19%;
   right: 4.11%;
-  top: 42%;
+  top: 45%;
   bottom: 100%;
   
   background: #FFFFFF;

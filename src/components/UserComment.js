@@ -21,8 +21,8 @@ class UserComment extends Component{
                     <div className="cmt_css">
                         <p>Inspired by functional drinks from the Far East, Dietrich Mateschitz founded Red Bull in the mid-1980s. He developed not only a new product but also a unique marketing concept and launched Red Bull Energy Drink in Austria on April 1, 1987. A completely new product category was born</p>
                         <div className="btn_edit">
-                        <Button className="btn_css" variant="primary">👍 856K</Button>
-                        <Button className="btn_css" variant="primary">👎 156K</Button>
+                        <button className="btn_css" >👍 856K</button>
+                        <button className="btn_css" >👎 156K</button>
                         </div>
                     </div>
                 </div>

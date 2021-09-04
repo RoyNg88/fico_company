@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class UserNameAvatar extends Component{
         render(){
             return(
-                <div className = "UserNameAvatar">
+                <div id = "UserNameAvatar">
                   <div className ="userName">
                    <p>UserName</p>
                    </div>
