@@ -388,19 +388,35 @@
 
 .icon_css{
   position: relative;
-  margin-right: 100px;
+  margin-right: 150px ;
   text-align: center;
-  top:70px;
+  
   left:50px;
- 
+
+  
+}
+
+
+.contact_btn  {
+border:none;
+background-color: white;
+
+}
+
+.contact_btn p{
+  color: gray;
+  font-weight: bolder;
+  position:relative;
+  left:-20px;
+  top: 15px;
 }
 
 
 
 
-
-
-
+.icon_css:hover {
+  color: red;
+}
 
 
 

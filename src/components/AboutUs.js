@@ -15,9 +15,28 @@ class AboutUs extends Component{
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
                         </p>
                     </div>
-                    <FontAwesomeIcon icon={faMapMarkerAlt} size="4x" className="icon_css" href="#"/>
+                   
+                    <button className="contact_btn" >
+                    <FontAwesomeIcon icon={faMapMarkerAlt} className="icon_css" size="4x"/>
+                    <p>Ho Chi Minh</p>
+                    </button>
+                    
+
+                    <button className="contact_btn" >
                     <FontAwesomeIcon icon={faMobileAlt} size="4x" className="icon_css" href="#" />
-                    <FontAwesomeIcon icon={faEnvelope} size="4x"  className="icon_css" href="#" />
+                    <p>(028)39564242</p>
+                        </button>
+                    
+
+                        <button className="contact_btn" >
+                    
+                        <FontAwesomeIcon icon={faEnvelope} size="4x"  className="icon_css" href="#" />
+                    <p>ficocompany@gmail.com</p>
+                        </button>
+                    
+                
+                    
+                   
 
 
                     
@@ -30,10 +49,7 @@ class AboutUs extends Component{
                     <br></br>
                     <br></br>
                     <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
+                    
                     
                     
                     </div>
