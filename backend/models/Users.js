@@ -9,6 +9,9 @@ const auth = require("../middleware/verifyToken");
 const sharp = require('sharp');
 const multer = require('multer');
 
+/* ---------------------------------------------------- 
+                START: Storage
+---------------------------------------------------- */
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
         cb(null, './uploads/users/')
@@ -34,6 +37,14 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
+/* ---------------------------------------------------- 
+                END: Storage
+---------------------------------------------------- */
+
+/* ---------------------------------------------------- 
+                START: Router
+---------------------------------------------------- */
+
 // GET
 router.get('/', auth, (req, res, next) => {
    User.find({}, (err, users) => {
@@ -56,61 +67,30 @@ router.get('/:id', auth, (req, res, next) => {
 
 
 //DELETE
-router.delete('/:id', auth, (req, res) => {
-    User.findOne({id: req.params.id}, function(err, user){
-        if(err){ handleError(err)}
-        else if(user.profilePicture) {
-            if(typeof user.profilePicture !== 'undefined' && user.profilePicture !== '' && user.profilePicture.indexOf('/uploads/users/default_profile') === -1){
-                fs.unlinkSync('.'+user.profilePicture);
+router.delete('/:id', auth, (req, res) => { 
+    User.findOne({ id: req.params.id }, (err, user) => {
+        if (err) {
+            handleError(err);
+        } else if (user.image) {
+            if (typeof user.profilePicture !== 'undefined' && user.profilePicture !== '') {
+                fs.unlinkSync('.' + user.profilePicture);
             }
         }
     })
-    User.deleteOne({id: req.params.id}, function(err, result){
-        res.send(result)
-    })
+
+    User.deleteOne({ id: req.params.id })
+        // .populate('postedBy')
+        .exec((err, docs) => {
+            if (err !== null) {
+                console.log(`Error in delete 1 user: ${err}`);
+            } else {
+                res.send(docs);
+            }
+        })
+
 })
-router.delete('/:id', auth, async (req, res) => {
-    if (req.user._id === req.params._id && req.user.isAdmin) {
-      try {
-        await User.findByIdAndDelete({ _id: req.params._id })
-        res.status(200).send("Account has been deleted")
-      } catch (err) {
-        return res.status(500).send(err)
-      }
-    } else {
-      return res.status(403).send("You can only delete your account!")
-    }
-  })
 
 // UPDATE
-// router.put('/:_id', auth, async (req, res) => {
-//     if (req.params._id == req.user._id || req.user.isAdmin) {
-//       console.log(req.user._id)
-//       // Hash password
-//       if (req.body.password) {
-//         try {
-//           const salt = await bcrypt.genSaltSync(10)
-//           req.body.password = await bcrypt.hash(req.body.password, salt)
-//         } catch (err) {
-//           return res.status(500).send(err)
-//         }
-//       }
-  
-//       try {
-//         await User.findByIdAndUpdate(req.params._id, {
-//           $set: req.body
-//         })
-//         res.status(200).send('Account has been updated')
-//       } catch (err) {
-//         return res.status(500).send(err)
-//       }
-  
-//     } else {
-//       console.log(req.body._id)
-//       return res.status(403).send("Only update your account")
-//     }
-//   })
-
 router.put('/:id', auth, upload.single('profilePicture'), async (req, res, next) => {
     let salt = await bcrypt.genSalt(10);
     let encryptedPass = await bcrypt.hash(req.body.password, salt);
@@ -169,6 +149,10 @@ router.post('/', auth, async (req, res, next) => {
       console.log(e);
    }
 })
+
+/* ----------------------------------------------------
+                END: Router
+---------------------------------------------------- */
 
 function handleError(err){
     console.log(err)
