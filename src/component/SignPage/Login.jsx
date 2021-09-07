@@ -1,6 +1,8 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React from 'react';
+import {Link, Redirect} from 'react-router-dom';
+import {Row,Col,Container,Form,Button} from 'react-bootstrap';
 
 const url = "http://localhost:4001/login";
 export default class Login extends React.Component{
@@ -28,18 +30,11 @@ export default class Login extends React.Component{
         })
         .then(res=>res.json())
         .then(data=>{
-            if(data.result == 'authenticated1'){
+            if(data.result == 'authenticated'){
                 alert('Login successfully')
                 window.sessionStorage.setItem('isAuthenticated', 1)
                 window.sessionStorage.setItem('token', data.token)
                 this.props.history.push('/projects')
-                window.location.reload()
-            }
-            if(data.result == 'authenticated'){
-                alert('Login successfully')
-                window.sessionStorage.setItem('isAuthenticated', 2)
-                window.sessionStorage.setItem('token', data.tokenad)
-                this.props.history.push('/admin')
                 window.location.reload()
             }
             else{
@@ -52,24 +47,59 @@ export default class Login extends React.Component{
 
     render(){
         return(
-            <div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-12 mt-4">
-                        <strong><h1 class="text-center login-title mt-4">Sign in</h1></strong>
-                        <div class="account-wall">
-                            <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                                alt="" />
-                            <form class="form-signin">
-                                <input type="email" name="email" class="form-control" placeholder="email" onChange={this.handleChange.bind(this)}/>
-                                <input type="password" name="password" class="form-control" placeholder="Password" onChange={this.handleChange.bind(this)}/>
-                                <button class="btn btn-lg btn-primary btn-block" onClick={this.login.bind(this)}>
-                                    Sign in</button>
-                                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+            <Container fluid className='bg-white'>
+            <Row>
+               <Col md={4} lg={6} className="d-none d-md-flex bg-image"></Col>
+               <Col md={8} lg={6}>
+                  <div className="login d-flex align-items-center py-5">
+                     <Container>
+                        <Row>
+                           <Col md={9} lg={8} className="mx-auto pl-5 pr-5">
+                              <h3 className="login-heading mb-4">Welcome back!</h3>
+                              <Form onChange={this.logIn}>
+                                 <div className="form-label-group">
+                                    <Form.Control type="email" id="inputEmail" placeholder="Email address" aria-describedby="emailHelp"
+                                           name ="email"
+                                           value = {this.state.email}
+                                           onChange = {this.handleChange.bind(this)}/>
+                                    <Form.Label htmlFor="inputEmail">Email address</Form.Label>
+                                 </div>
+                                 <div className="form-label-group">
+                                    <Form.Control type="password" id="inputPassword" placeholder="Password"
+                                    name="password" 
+                                    value={this.state.password} 
+                                    onChange={this.handleChange.bind(this)} />
+                                    <Form.Label htmlFor="inputPassword">Password</Form.Label>
+                                 </div>
+                                 <Form.Check  
+                                     className='mb-3'
+                                   custom
+                                   type="checkbox"
+                                   id="custom-checkbox"
+                                   label="Remember password"
+                                 />
+                                 <button onClick={this.validateCheck.bind(this)} className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Sign in</button>
+                                 <div className="text-center pt-3">
+                                    Don’t have an account? <Link className="font-weight-bold" to="/register">Sign Up</Link>
+                                 </div>
+                                  <hr className="my-4" />
+                                  <p className="text-center">LOGIN WITH</p>
+                                  <div className="row">
+                                     <div className="col pr-2">
+                                        <Button className="btn pl-1 pr-1 btn-lg btn-google font-weight-normal text-white btn-block text-uppercase" type="submit"><FontAwesome icon="google" className="mr-2" /> Google</Button>
+                                     </div>
+                                     <div className="col pl-2">
+                                        <Button className="btn pl-1 pr-1 btn-lg btn-facebook font-weight-normal text-white btn-block text-uppercase" type="submit"><FontAwesome icon="facebook" className="mr-2" /> Facebook</Button>
+                                     </div>
+                                  </div>
+                              </Form>
+                           </Col>
+                        </Row>
+                     </Container>
+                  </div>
+               </Col>
+            </Row>
+         </Container>
+       );
+   }
 }
