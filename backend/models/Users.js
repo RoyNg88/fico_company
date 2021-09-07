@@ -7,7 +7,32 @@ const User = require('../schemas/user');
 const fs = require('fs')
 const auth = require("../middleware/verifyToken");
 const sharp = require('sharp');
+const multer = require('multer');
 
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './uploads/users/')
+    },
+    filename: function(req, file, cb){
+        var fileFormat = (file.originalname).split(".");
+        cb(null, file.fieldname + '-' + Date.now() + '.' + fileFormat[fileFormat.length - 1])
+    }
+})
+
+const fileFilter = (req, file, cb) => {
+    // reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+        cb(null, true);
+    }else{
+        cb(null, false);
+    }
+}
+const upload = multer({
+    storage: storage, limits:{
+    fileSize: 1024 * 1024 * 16
+    },
+    fileFilter: fileFilter
+});
 
 // GET
 router.get('/', auth, (req, res, next) => {
@@ -31,7 +56,7 @@ router.get('/:id', auth, (req, res, next) => {
 
 
 //DELETE
-router.delete('/:_id', auth, (req, res) => {
+router.delete('/:id', auth, (req, res) => {
     User.findOne({id: req.params.id}, function(err, user){
         if(err){ handleError(err)}
         else if(user.profilePicture) {
@@ -44,7 +69,7 @@ router.delete('/:_id', auth, (req, res) => {
         res.send(result)
     })
 })
-router.delete('/:_id', auth, async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     if (req.user._id === req.params._id && req.user.isAdmin) {
       try {
         await User.findByIdAndDelete({ _id: req.params._id })
@@ -86,56 +111,44 @@ router.delete('/:_id', auth, async (req, res) => {
 //     }
 //   })
 
-router.put('/:_id', auth, async (req, res, next) => {
-    if (req.user && req.user.isAdmin) {
-    // Hash password
-    if (req.body.password) {
-          const salt = await bcrypt.genSaltSync(10)
-          req.body.password = await bcrypt.hash(req.body.password, salt)
-      }
-    if(req.file){
-    // UPLOAD Image
-        User.findOne(req.params._id, function(err, user){
-    if(err) handleError(err)
-        fs.unlinkSync('.'+user.profilePicture)
-        } )
-        const path = "/" + req.file.path.split("\\").join("/")
-        console.log(req.file);
-        sharp(req.file.path).resize(256, 256).toFile('./uploads/users/' + '256x256-' + req.file.filename , function(err) {
-    if (err) {
-            console.error('sharp>>>', err)
-        }
-        console.log('Resize successfully')
-        fs.unlinkSync('.'+path)
-        });
-        console.log(path)
-        User.findByIdAndUpdate(req.params._id,{
-         name: req.body.name,
-         email: req.body.email,
-         password: req.body.password,
-         profilePicture: path.replace(req.file.filename, '256x256-' + req.file.filename)
-    }, 
-        function(err, result){
-            res.status(200).send('Account has been updated')
-    })
+router.put('/:id', auth, upload.single('profilePicture'), async (req, res, next) => {
+    let salt = await bcrypt.genSalt(10);
+    let encryptedPass = await bcrypt.hash(req.body.password, salt);
+    if (req.file) {
+        if (req.body.id) {
+            let path = "/" + req.file.path.split("\\").join("/");
+            sharp(req.file.path).resize(256, 256).toFile('./uploads/users/' + '256x256-' + req.file.filename, (err) => {
+                if (err) {
+                    console.log('Sharp Error: ', err)
+                }
+                console.log('Resize successfully');
+                fs.unlinkSync('.' + path)
+            });
+            console.log(path);
+            User.findOneAndUpdate(
+                { id: req.params.id },
+                {
+                    ...req.body,
+                    profilePicture: path.replace(req.file.filename, '256x256-' + req.file.filename)
+                },
+                { new: true }
+            )
+                .then(doc => res.send(doc))
+                .catch(err => res.send(err))
+        } 
+    } else {
+        User.findOneAndUpdate(
+            { id: req.params.id },
+            {
+                name: req.body.name,
+                email: req.body.email,
+                password: encryptedPass,
+            },
+            { new: true })
+            .then(doc => res.send(doc))
+            .catch(err => res.send(err))
     }
-    
-// ------------------------
-    else{
-        User.findByIdAndUpdate( req.params._id,{
-         name: req.body.name,
-         email: req.body.email,
-         password: req.body.password
-        }, 
-           function(err, result){
-           res.status(200).send('Account has been updated')}
-        )
-
-    }}else {
-        console.log(req.body._id)
-        return res.status(403).send("Only update your account")
-      }
- }) 
+})
 
 // CREATE
 router.post('/', auth, async (req, res, next) => {
@@ -157,6 +170,9 @@ router.post('/', auth, async (req, res, next) => {
    }
 })
 
+function handleError(err){
+    console.log(err)
+ }
  
 
 module.exports = router;
