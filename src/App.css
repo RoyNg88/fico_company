@@ -36,6 +36,7 @@
     transform: rotate(360deg);
   }
 }
+/* <<<<<<< HEAD */
 .order-list .btn {
   border-radius: 2px;
   min-width: 121px;
@@ -143,3 +144,396 @@
 .osahan-cart-item .food-item {
   vertical-align: bottom;
 }
+/* //======= */
+
+
+
+.banner_css{
+  position: absolute;
+  width: 100%;
+  height: 262px;
+  left: 0px;
+  top: 59px;
+  
+  background: #F5F5F5;
+  }
+  
+  .h1_css{
+      /* FLYAWAY: EMERGENCY AFGHAN RESCUE MISSION */
+  
+  position: absolute;
+  width: 1293px;
+  height: 72px;
+  top: 100px;
+  
+  
+  
+  
+  }
+  
+
+
+  .poster_img{
+    position: absolute;
+    left: 4%;
+    right: 36.73%;
+    top: 45%;
+    bottom: 52.87%;
+    
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    width: 700px;
+    height: 450px;
+    }
+
+
+    #UserNameAvatar{
+      position: absolute;
+      left: 10.63%;
+      
+      top: 107.0%;
+      bottom: -0.76%;
+      
+  }
+  
+  .userName{
+      position: relative;
+     left: 15%;
+     top: 7px;
+     
+      
+      
+      }
+      
+  .userAvatar{
+      position: absolute;
+      left: -55.63%;
+      
+      top: 1.0%;
+      bottom: -0.76%;
+      border-radius: 70%;
+      width: 40px;
+      height: 35px;
+  }
+
+
+
+  #UserInformation{
+    
+    position: absolute;
+    left: 3.63%;
+    top: 112.0%;
+    bottom: -0.76%;
+    width: 700px;
+    border-top: 3px solid  #C4C4C4;
+    ;
+    
+    
+}
+
+
+
+.userinfo_content{
+    position: absolute;
+    left: 4.63%;
+}
+
+
+
+#content_cmt{
+  position: absolute;
+  left: 3.63%;
+  top: 160.0%;
+  bottom: -0.76%;
+  width: 700px;
+
+}
+
+
+
+
+
+.avatar_user{
+  position: absolute;
+  left: 10%;
+  border-radius: 70%;
+  width: 40px;
+  height: 35px;
+}
+
+.username_css{
+  position:absolute;
+  left: 18%;
+}
+
+
+.date_css{
+  position: absolute;
+  font-size: x-small;
+  color: gray;
+  left: 18%;
+  margin-top: 3%;
+}
+
+.cmt_css{
+  position: absolute;
+  font-size: small;
+  left: 17%;
+  margin-top: 7%;
+  border-bottom: 2px solid gray;
+  color:gray;
+
+}
+
+.btn_css:hover,
+		.btn:focus {
+			box-shadow: inset 0 0 0 2em var(--hover);
+		}
+    .btn_css {
+			--color: #ff4500;
+			--hover: #ff4500;}
+
+.btn_css {
+
+ 
+  margin-right: 1%;
+
+  background-color: white;
+  font-weight: bolder ;
+  margin-right: 1%;
+  border-radius: 12px;
+  border-color: #ff4500;
+  margin-bottom: 1%;
+  height:30px;
+  font-size: 6pt;
+  width:50px;
+  margin-bottom: 1%;
+  height:30px;
+  width:50px;
+  
+  
+}
+
+
+
+
+.btn_edit{
+  
+  position: relative;
+  left:-40%;
+  margin-bottom: 2%;
+  
+}
+
+
+#donate{
+  position: absolute;
+  left: 66.19%;
+  right: 4.11%;
+  top: 45%;
+  bottom: 100%;
+  
+  background: #FFFFFF;
+  
+  box-sizing: border-box;
+  }
+  
+  .donate_content {
+      border: 2px solid gray;
+      height: 600px;
+      
+  }
+  
+  .p_edit{
+      
+      font-weight: bolder;
+      position: relative;
+      border-bottom: solid 7px#2F4FA1;
+   
+  
+  }
+  
+  
+  
+  
+  .donate_btn{
+  position: absolute;
+  left: 40.92%;
+  bottom: -100px;
+  border-radius: 3px;
+  
+  }
+
+
+  #aboutUs{
+    position: relative;
+    top: 200px;
+
+  }
+
+  #aboutUs h1{
+    font-family: 'Kaushan Script', handwriting;
+    font-size: 3rem;
+    
+  }
+
+
+  .content_aboutus{
+    width: 700px;
+    margin:0 auto;
+
+  }
+
+  
+  
+
+
+
+.img_team{
+  position: relative;
+  top: 50px;
+}
+  .team_avatar{
+    
+    border-radius: 360px;
+    margin-right: 30px;
+    width: 170px;
+    height: 170px;
+    border-color: black;
+  }
+
+  
+
+#aboutUs  h2{
+  font-family: 'Kaushan Script', handwriting;
+    font-size: 3rem;
+    text-align: center;
+}
+
+
+.container_team {
+  margin: 20px 40px;
+  color: white;
+}
+
+
+.profile_team {
+  display: flex;
+  
+  margin: 30px 10px;
+  padding-bottom: 300px;
+}
+
+.profile_member {
+  flex-basis: 260px;
+}
+
+.profile_member .profile-img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  
+  cursor: pointer;
+  transition: 400ms;
+}
+
+.profile_member:hover .profile-img {
+  filter: grayscale(0);
+}
+
+.user-name {
+  margin-top: 30px;
+  font-size: 35px;
+}
+
+.profile_member h5 {
+  font-size: 18px;
+  font-weight: bolder;
+  color: gray;
+}
+
+
+
+
+@media only screen and (max-width: 1150px) {
+  .profile_team {
+    flex-direction: column;
+  }
+
+  .profile_member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+}
+
+@media only screen and (max-width: 900px) {
+  
+  .profile_team {
+    margin: 20px 0;
+  }
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "montserrat",sans-serif;
+  box-sizing: border-box;
+}
+
+
+
+.contact-info{
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+
+.icon_css{
+  position: relative;
+  margin-right: 150px ;
+  text-align: center;
+  
+  left:50px;
+
+  
+}
+
+
+.contact_btn  {
+border:none;
+background-color: white;
+
+}
+
+.contact_btn p{
+  color: gray;
+  font-weight: bolder;
+  position:relative;
+  left:-20px;
+  top: 15px;
+}
+
+
+
+
+.icon_css:hover {
+  color: red;
+}
+
+
+
+
+
+
+
+
+
+
+/* >>>>>>> 71af8d2afa8c12b33c78ddd72130b420b212f68f */
