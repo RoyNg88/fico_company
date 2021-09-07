@@ -1,22 +1,24 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-useless-concat */
 /* eslint-disable no-undef */
-const app = require('express');
+const express = require('express');
 const Fundraiser = require('../schemas/fundraiser');
-const router = app.Router();
+const router = express.Router();
 const multer = require('multer');
 const fs = require('fs')
-// const auth = require('../middleware/auth')
 const sharp = require('sharp')
 const auth = require("../middleware/verifyToken");
+
 
 
 
 /* ---------------------------------------------------- 
                 START: Storage
 ---------------------------------------------------- */
-let storage = multer.diskStorage({
-    destination: "./uploads/fundraiser",
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './uploads/fundraisers/')
+    },
     filename: function (req, file, cb) {
         let fileFormat = (file.originalname).split(".");
         cb(null, file.fieldname + '-' + Date.now() + '.' + fileFormat[fileFormat.length - 1])
@@ -32,7 +34,7 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
-let upload = multer({
+const upload = multer({
     storage: storage, limits: {
         fileSize: 1024 * 1024 * 16
     },
@@ -75,55 +77,31 @@ router.get('/:id', function (req, res) {
 
 // CREATE Fundraiser
 
-router.post('/', auth,upload.single('image'), (req, res) => {    
-    if(req.file){
-    if(req.body.id){
-    let path = "/" + req.file.path.split("\\").join("/")
+router.post('/', auth ,upload.single('image'), (req, res) => {  
+    const path = "/" + req.file.path.split("\\").join("/");
     console.log(req.file);
-    sharp(req.file.path).resize(256, 256).toFile('./uploads/fundraiser/' + '256x256-' + req.file.filename , (err) => {
+    sharp(req.file.path).resize(256, 256).toFile('./uploads/fundraisers/' + '256x256-' + req.file.filename, (err) => {
         if (err) {
-        console.error('sharp>>>', err)
+            console.error('Sharp Error: ', err)
         }
-        console.log('Resize successfully')
-        fs.unlinkSync('.'+path)
-        });
-    console.log(path)
+        console.log('Resize successfully');
+        fs.unlinkSync('.' + path)
+    });
+    console.log(path);
     Fundraiser.create({
-        id: req.body.id,
-        title: req.body.title,
-        name: req.body.name,
-        datePosted: req.body.datePosted,
-        category: req.body.category,
-        address: req.body.address,
-        information: req.body.information,
-        donate: req.body.donate,
-        image: path.replace(req.file.filename, '256x256-' + req.file.filename) 
-    }, (err, fundraiser) => {
-        res.send(fundraiser)
+        ...req.body,
+        image: path.replace(req.file.filename, '256x256-' + req.file.filename)
     })
-}
-}else{
-    Fundraiser.create({
-        id: req.body.id,
-        title: req.body.title,
-        name: req.body.name,
-        datePosted: req.body.datePosted,
-        category: req.body.category,
-        address: req.body.address,
-        information: req.body.information,
-        donate: req.body.donate,
-    }, (err, fundraiser) => {
-        res.send(fundraiser)
-    })
-    }
-})    
+    // .populate('postedBy')
+    .then(doc => res.send(doc))
+    .catch(err => res.send(err))
+})
 
 // UPDATE Fundraiser
 
-router.put('/:_id', auth, upload.single('image'), (req, res) => {
-
+router.put('/:id', auth, upload.single('image'), (req, res) => {
     if (req.file) {
-        if (req.body._id) {
+        if (req.body.id) {
             let path = "/" + req.file.path.split("\\").join("/");
             sharp(req.file.path).resize(256, 256).toFile('./uploads/fundraiser/' + '256x256-' + req.file.filename, (err) => {
                 if (err) {
@@ -133,8 +111,8 @@ router.put('/:_id', auth, upload.single('image'), (req, res) => {
                 fs.unlinkSync('.' + path)
             });
             console.log(path);
-            Fundraiser.findByIdAndUpdate(
-                { _id: req.params._id },
+            Fundraiser.findOneAndUpdate(
+                { id: req.params.id },
                 {
                     ...req.body,
                     image: path.replace(req.file.filename, '256x256-' + req.file.filename)
@@ -145,12 +123,15 @@ router.put('/:_id', auth, upload.single('image'), (req, res) => {
                 .catch(err => res.send(err))
         } 
     } else {
-        Fundraiser.findByIdAndUpdate(
-            { _id: req.params._id },
+        Fundraiser.findOneAndUpdate(
+            { id: req.params.id },
             {
                 title: req.body.title,
                 name: req.body.name,
+                address: req.body.address,
+                information: req.body.information,
                 category: req.body.category,
+                donate: req.body.donate,
             },
             { new: true })
             .then(doc => res.send(doc))
@@ -161,9 +142,9 @@ router.put('/:_id', auth, upload.single('image'), (req, res) => {
 
 // DELETE Fundraiser
 
-router.delete('/:_id', auth, (req, res) => {
+router.delete('/:id', auth, (req, res) => {
     
-    Fundraiser.findOne({ _id: req.params._id }, (err, fundraiser) => {
+    Fundraiser.findOne({ id: req.params.id }, (err, fundraiser) => {
         if (err) {
             handleError(err);
         } else if (fundraiser.image) {
@@ -173,7 +154,7 @@ router.delete('/:_id', auth, (req, res) => {
         }
     })
 
-    Fundraiser.deleteOne({ _id: req.params._id })
+    Fundraiser.deleteOne({ id: req.params.id })
         // .populate('postedBy')
         .exec((err, docs) => {
             if (err !== null) {

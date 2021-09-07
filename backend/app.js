@@ -15,8 +15,8 @@ app.use(express.json());
 
 
 app.use(bodyParser.json())
-app.use('/uploads/fundraiser/', express.static('uploads/fundraiser'))
-app.use('/uploads/user/', express.static('uploads/user'))
+app.use('/uploads/fundraisers/', express.static('uploads/fundraisers'))
+app.use('/uploads/users/', express.static('uploads/users'))
 app.use(cors());
 app.use(expressSession({
     secret: 'keyboard cat'
