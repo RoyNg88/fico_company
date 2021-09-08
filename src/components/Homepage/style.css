@@ -142,7 +142,7 @@ h1 {
     background: #18A0FB;
     background-size: contain;
     background-repeat: no-repeat;
-    background: url('./asset/image/highest.png');
+    background: url('../../asset/image/highest.png');
     width: 100%;
 }
 

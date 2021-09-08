@@ -1,6 +1,6 @@
 import React from 'react'
 import './style.css';
-import sample from './asset/image/sample.png'
+import sample from '../../asset/image/sample.png'
 
 export default function Fundraiser() {
     console.log('aaaaaaaaaaaaaaaaaaaa')

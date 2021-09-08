@@ -1,12 +1,20 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import 'react-select2-wrapper/css/select2.css';
 import './App.css';
 
-import Login from "./component/SignPage/Login.jsx";
+import Login from "./components/SignPage/Login";
+import Admin from './components/AdminPage/Admin';
+import AboutUs from './components/AboutUs/AboutUs';
 import Navbar from './common/Navbar';
-import Admin from './component/AdminPage/Admin';
+import Footer from './common/footer';
+import NotFound from './common/NotFound';
+import Register from './components/SignPage/Register';
+import Home from './components/Homepage/Homepage.jsx';
+
 
 export default class App extends React.Component {
   constructor(){
@@ -24,28 +32,21 @@ export default class App extends React.Component {
   return (
     <div>
       <BrowserRouter>
-        <Navbar />
-        <div id="page-container">
-          <div id="content-wrap">
-            <Switch>
-              {/* <Route exact path="/" component={Home}/>
-              <Route path="/home" component={Home}/> */}
-            </Switch>
-            <div className="container">  
+        <Navbar /> 
               <Switch>
-                {/* <Route exact path="/fundraisers" component={Fundraisers}/>
-                <Route path="/fundraisers/:id" component={FundraiserDetail} />
-                <Route exact path="/search" component={Fundraisersearch}/>
-                <Route path="/Add_courses" component={AddFundraiser}/> */}
+                {/* <Route exact path="/fundraisers" component={Fundraisers}/> */}
+                <Route exact path="/" component={Home}/>
+                <Route path="/home" component={Home}/>
+                <Route path="/notfound" exact component={NotFound} />
                 <Route path="/login" component={Login}/>
+                <Route path="/register" component={Register}/>
                 <Route path="/admin" component={Admin}/>
+                <Route path="/aboutus" component={AboutUs}/>
+                <Route exact component={NotFound} />
                 {/* <Route path="/user" component={Users}/> */}
                 {/* <Route path="/admin" component={Admin}/> */}
               </Switch>
-            </div>
-          </div>
-          {/* <Footer /> */}
-        </div>
+          <Footer />
       </BrowserRouter>
     </div>
   );

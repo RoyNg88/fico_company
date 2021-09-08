@@ -1,51 +1,60 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Row,Col,Container,Form,Button} from 'react-bootstrap';
 
-const url = "http://localhost:4001/login";
+import FontAwesome from '../../common/FontAwesome';
+
+const url = "http://localhost:4001/api/auth/login";
 export default class Login extends React.Component{
     
-    constructor(){
-        super()
-        this.state = {email: '', password: ''}
-    }
+   constructor(props) {
+      super(props)
+      this.state = {
+          name:'',
+          email: "",
+          password: "",
+          isAdmin: ""
+          , listOfUsers: []
+          , valid: false
+      }
+  }
 
-    handleChange(e){
-        var obj = {}
-        obj[e.target.name] = e.target.value
-        this.setState(obj)
-    }
-    login(event){
-        event.preventDefault();
-        var user ={email: this.state.email, password: this.state.password}
-        fetch(url,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-        .then(res=>res.json())
-        .then(data=>{
-            if(data.result == 'authenticated'){
-                alert('Login successfully')
-                window.sessionStorage.setItem('isAuthenticated', 1)
-                window.sessionStorage.setItem('token', data.token)
-                this.props.history.push('/projects')
-                window.location.reload()
-            }
-            else{
-                alert('Wrong email or password')
-                window.sessionStorage.setItem('isAuthenticated', 0)
-                window.location.reload()
-            }
-        })
-    }
+login(event){
+   event.preventDefault();
+   var user ={email: this.state.email, password: this.state.password}
+   fetch(url,{
+       method: 'POST',
+       headers: {
+           'Content-Type': 'application/json',
+           'Accept': 'application/json'
+       },
+       body: JSON.stringify(user)
+   })
+   .then(res=>res.json())
+   .then(data=>{
+       if(data.auth === true){
+           alert('Login successfully')
+           window.sessionStorage.setItem('isAuthenticated', 1)
+           window.sessionStorage.setItem(data.token, 'token')
+           this.props.history.push('/admin' + this.state.name)
+           window.location.reload()
+       }else{
+           alert('Wrong username or password')
+           window.sessionStorage.setItem('isAuthenticated', 0)
+           window.location.reload()
+       }
+   })
+}
+  handleChange(e) {
+      let obj = {}
+      obj[e.target.name] = e.target.value
+      this.setState(obj)
 
-    render(){
+  }
+    render() {
         return(
             <Container fluid className='bg-white'>
             <Row>
@@ -78,7 +87,7 @@ export default class Login extends React.Component{
                                    id="custom-checkbox"
                                    label="Remember password"
                                  />
-                                 <button onClick={this.validateCheck.bind(this)} className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Sign in</button>
+                                 <button onClick={this.login.bind(this)} className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Sign in</button>
                                  <div className="text-center pt-3">
                                     Don’t have an account? <Link className="font-weight-bold" to="/register">Sign Up</Link>
                                  </div>

@@ -1,8 +1,9 @@
+/* eslint-disable array-callback-return */
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Row,Col,Container,Form} from 'react-bootstrap';
 
-const url = "http://localhost:9000/auth/register"
+const url = "http://localhost:4001/api/auth/register"
 class Register extends React.Component {
 	constructor(props) {
         super(props)
@@ -16,11 +17,7 @@ class Register extends React.Component {
 
         }
     }
-	fetchData() {
-        fetch("http://localhost:9000/api/users")
-            .then(res => res.json())
-            .then(json => this.setState({ listOfUsers: json }))
-    }
+	
     validateCheck()
     {
         let counter = 0;
@@ -81,9 +78,6 @@ class Register extends React.Component {
         obj[e.target.name] = e.target.value
         this.setState(obj)
     }
-    componentDidMount() {
-        this.fetchData();
-    }
      
 	render(){
 		if (this.state.valid===true){
@@ -105,7 +99,7 @@ class Register extends React.Component {
 									 name ="name"
 									 value = {this.state.name}
 									 onChange={this.handleChange.bind(this)}/>
-	                                 <Form.Label htmlFor="inputName">User Name</Form.Label>
+	                                 <Form.Label htmlFor="inputName">Full Name</Form.Label>
 	                              </div>
 	                              <div className="form-label-group">
 	                                 <Form.Control type="email" id="inputEmail" placeholder="Email address" 
