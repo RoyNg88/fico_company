@@ -843,7 +843,7 @@ img{
  /* ABOUT US */
   #aboutUs{
     position: relative;
-    top: 200px;
+    top: 50px;
 
   }
   #aboutUs h1{
@@ -875,13 +875,12 @@ img{
 }
 .container_team {
   margin: 20px 40px;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 .profile_team {
   display: flex;
-  
   margin: 30px 10px;
-  padding-bottom: 300px;
+  padding-bottom: 20px;
 }
 .profile_member {
   flex-basis: 260px;
@@ -898,8 +897,9 @@ img{
   filter: grayscale(0);
 }
 .user-name {
+  text-align: auto;
   margin-top: 30px;
-  font-size: 35px;
+  font-size: 20px;
 }
 .profile_member h5 {
   font-size: 18px;
@@ -951,7 +951,7 @@ img{
 
 .contact_btn  {
 border:none;
-background-color: white;
+background-color: #f3f7f8;
 
 }
 
