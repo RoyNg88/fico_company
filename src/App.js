@@ -5,17 +5,21 @@ import UserInformation from './components/UserInformation';
 import UserNameAvatar from './components/UserNameAvatar';
 import Donate from './components/Donate';
 import UserComment from './components/UserComment';
+import { BrowserRouter } from 'react-router-dom'
 
 
 function App() {
   return (
     <div className="App">
-     <Banner></Banner>
-     <Poster></Poster>
-     <UserNameAvatar></UserNameAvatar>
-     <UserInformation></UserInformation>
-     <Donate></Donate>
-     <UserComment></UserComment>
+      <BrowserRouter>
+        <Banner></Banner>
+        <Poster></Poster>
+        <UserNameAvatar></UserNameAvatar>
+        <UserInformation></UserInformation>
+        <Donate></Donate>
+        <UserComment></UserComment>
+      </BrowserRouter>
+      
      
     </div>
   );

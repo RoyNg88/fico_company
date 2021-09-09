@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
 
-import {Button, Modal} from 'react-bootstrap';
+import {Button, Modal, Form, InputGroup} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 class Donate extends Component{
+  constructor() {
+    super()
+    this.state={
+      showModal: false
+    }
+  }
+
+  handleModal() {
+    this.setState(
+      {showModal: !this.state.showModal}
+    )
+  }
         render(){
             return(
                 <div id = "donate">
@@ -15,7 +27,22 @@ class Donate extends Component{
                         
                     </div>
                 <div className="donate_btn">
-                <Button variant="primary">Donate</Button>
+                <Button variant="primary" onClick={()=>{this.handleModal()}}>Donate</Button>
+                <Modal show={this.state.showModal} onHide={()=>{this.handleModal()}}>
+                  <Modal.Header closeButton>
+                    Select the amount you wish to donate
+                  </Modal.Header>
+                  <Modal.Body>
+                    <InputGroup>
+                      <Form.Control type="number" min="10000" placeholder="Amount"/>
+                      <InputGroup.Text>VND</InputGroup.Text>
+                    </InputGroup>
+                    
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button>Confirm donation</Button>
+                  </Modal.Footer>
+                </Modal>
                 </div>    
                 </div>
 
