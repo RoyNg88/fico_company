@@ -6,7 +6,7 @@ import {
   useParams,
   useLocation } from 'react-router-dom';
 import {
-  Button } from 'react-bootstrap';
+  Button, Modal, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
@@ -34,6 +34,11 @@ const left = {
 
 export default function UserProfile() {
   const classes = useStyles();
+  const [showModal, setShowModal] = useState(false);
+
+  function handleModal () {
+    setShowModal(!showModal)
+  }
 
   return(
     <div>
@@ -67,9 +72,40 @@ export default function UserProfile() {
             </div>
           </Container>
           <br/><br/><br/>
-          <Button style={{width: '125px', margin: 'auto', marginTop: '30px', marginBottom: '30px', backgroundColor: '#18A0FB'}}>
+          <Button style={{width: '125px', margin: 'auto', marginTop: '30px', marginBottom: '30px', backgroundColor: '#18A0FB'}}
+          onClick={handleModal}>
             Edit Profile
           </Button>
+          <Modal show={showModal} onHide={handleModal}>
+            <Modal.Header closeButton>
+              <h4>Edit Profile</h4>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Group className="mb-3" controlId="form.Name">
+                  <Form.Label>Full name</Form.Label>
+                  <Form.Control type="text" id="form.Name" placeholder="Posh Pete"/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="form.Username">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control type="text" id="form.Username" placeholder="poshestOfThePetes"/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="form.Email">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control type="email" id="form.Email" placeholder="poshestpete@gmail.com"/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="form.Password">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" id="form.Password"/>
+                </Form.Group>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button>
+                Confirm changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
         <br/><br/><br/>
         
