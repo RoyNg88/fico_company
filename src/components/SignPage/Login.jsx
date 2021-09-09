@@ -10,15 +10,11 @@ import FontAwesome from '../../common/FontAwesome';
 const url = "http://localhost:4001/api/auth/login";
 export default class Login extends React.Component{
     
-   constructor(props) {
-      super(props)
+   constructor() {
+      super()
       this.state = {
-          name:'',
           email: "",
           password: "",
-          isAdmin: ""
-          , listOfUsers: []
-          , valid: false
       }
   }
 
@@ -35,15 +31,23 @@ login(event){
    })
    .then(res=>res.json())
    .then(data=>{
-       if(data.auth === true){
-           alert('Login successfully')
-           window.sessionStorage.setItem('isAuthenticated', 1)
-           window.sessionStorage.setItem(data.token, 'token')
-           this.props.history.push('/admin' + this.state.name)
+       if(data.auth === true && data.isAdmin === true){
+           alert('Login admin successfully')
+           window.sessionStorage.setItem('isAuthenticated', true)
+           window.sessionStorage.setItem('token', data.token)
+           this.props.history.push('/admin')
            window.location.reload()
-       }else{
+       }
+       else if(data.auth === true && data.isAdmin === false){
+         alert('Login successfully')
+         window.sessionStorage.setItem('isAuthenticated', true)
+         window.sessionStorage.setItem('token', data.token)
+         this.props.history.push('/')
+         window.location.reload()
+     }
+       else{
            alert('Wrong username or password')
-           window.sessionStorage.setItem('isAuthenticated', 0)
+           window.sessionStorage.setItem('isAuthenticated', false)
            window.location.reload()
        }
    })
