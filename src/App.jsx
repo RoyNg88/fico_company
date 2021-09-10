@@ -15,7 +15,8 @@ import NotFound from './common/NotFound';
 import Register from './components/SignPage/Register';
 import Home from './components/Homepage/Homepage.jsx';
 import AddFundraiser from './components/Fundraiser/Add_Fundraiser';
-
+import ProjectPage from './components/ProjectPage/ProjectPage'
+import ProjectForm from './components/ProjectPage/ProjectForm';
 
 export default class App extends React.Component {
   constructor(){
@@ -47,7 +48,9 @@ export default class App extends React.Component {
                 {/* <Route path="/project" component={Project}/> */}
                 <Route path="/addfundraiser" component={AddFundraiser}/>
                 {/* <Route path="/project/:id" component={Project}/> */}
-                <Route exact component={NotFound} />
+                {/* <Route exact component={NotFound} /> */}
+                <Route path="/projects" component={ProjectPage} />
+                <Route path="/projectform" component={ProjectForm} />
                 {/* <Route path="/user" component={Users}/> */}
               </Switch>
           <Footer />
