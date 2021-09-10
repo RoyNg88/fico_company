@@ -7,6 +7,8 @@ import './App.css';
 import Login from "./component/SignPage/Login.jsx";
 import Navbar from './common/Navbar';
 import Admin from './component/AdminPage/Admin';
+import ProjectPage from './component/ProjectPage/ProjectPage'
+import ProjectForm from './component/ProjectPage/ProjectForm';
 
 export default class App extends React.Component {
   constructor(){
@@ -39,6 +41,8 @@ export default class App extends React.Component {
                 <Route path="/Add_courses" component={AddFundraiser}/> */}
                 <Route path="/login" component={Login}/>
                 <Route path="/admin" component={Admin}/>
+                <Route path="/projects" component={ProjectPage} />
+                <Route path="/projectform" component={ProjectForm} />
                 {/* <Route path="/user" component={Users}/> */}
                 {/* <Route path="/admin" component={Admin}/> */}
               </Switch>
