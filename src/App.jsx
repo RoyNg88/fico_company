@@ -14,21 +14,23 @@ import Footer from './common/footer';
 import NotFound from './common/NotFound';
 import Register from './components/SignPage/Register';
 import Home from './components/Homepage/Homepage.jsx';
+import AddFundraiser from './components/Fundraiser/Add_Fundraiser';
 
 
 export default class App extends React.Component {
   constructor(){
     super()
-    this.state = {isAuthenticated: 0}
+    this.state = {authenticated: false}
   }
 
-  componentWillMount(){
+  componentDidMount(){
     if (window.sessionStorage.getItem("isAuthenticated") === null) {
-      window.sessionStorage.setItem('isAuthenticated', 0)
+      window.sessionStorage.setItem('isAuthenticated', false)
     }
     this.setState({isAuthenticated: window.sessionStorage.getItem('isAuthenticated')})
   }
   render(){
+    
   return (
     <div>
       <BrowserRouter>
@@ -42,9 +44,11 @@ export default class App extends React.Component {
                 <Route path="/register" component={Register}/>
                 <Route path="/admin" component={Admin}/>
                 <Route path="/aboutus" component={AboutUs}/>
+                {/* <Route path="/project" component={Project}/> */}
+                <Route path="/addfundraiser" component={AddFundraiser}/>
+                {/* <Route path="/project/:id" component={Project}/> */}
                 <Route exact component={NotFound} />
                 {/* <Route path="/user" component={Users}/> */}
-                {/* <Route path="/admin" component={Admin}/> */}
               </Switch>
           <Footer />
       </BrowserRouter>

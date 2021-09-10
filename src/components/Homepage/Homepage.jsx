@@ -14,7 +14,7 @@ export default class Homepage extends React.Component {
 				<section className="section pt-5 pb-5 banner-bg">
 					<Container>
 					<img class="banner" src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2019/10/Promote-charity-event.png" ></img>
-                    <Link to="register" className="btn btn-success btn-lg">
+                    <Link to="/" className="btn btn-success btn-lg">
 			                  	Join Today <FontAwesome icon='chevron-circle-right' />
 			                  </Link>
 					</Container>
