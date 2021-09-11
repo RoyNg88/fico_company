@@ -972,7 +972,7 @@ background-color: #f3f7f8;
 
 /* Footer */
 .footer {
-  background: rgb(#F5F5F5);
+  background: rgb(#ececec);
 }
 .footer h6 {
   font-size: 14px;
@@ -999,7 +999,7 @@ background-color: #f3f7f8;
   font-size: 11px;
 }
 footer {
-  background-color: #ffffff;
+  background-color: #ebebeb;
 }
 
 /* Extra small devices (portrait phones, less than 576px) */
@@ -1408,7 +1408,7 @@ footer {
       width: 100% !important;
       display: block;
       padding: 12px 0;
-      border-bottom: 1px solid #dedede;
+      border-bottom: 1px solid #fffaf1;
   }
   .offer-dedicated-nav {
       text-align: center;
@@ -1469,4 +1469,21 @@ footer {
   /* Extra large devices (large desktops, 1200px and up) */
    @media (min-width: 1200px) {
   }
+  
+  .grid-container {
+  display: grid;
+  justify-content: space-evenly;
+  grid-template-columns: 356px 356px 356px; /*Make the grid smaller than the container*/
+  grid-gap: 50px;
+  padding: 10px;
+    
+  }
+  .grid-list{
+    display: inline-grid;
+    grid-row-gap: 30px;
+    padding: 10px;
+    grid-template-columns: 1200px;
+
+  }
+
   

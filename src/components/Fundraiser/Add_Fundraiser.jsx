@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-// import "./AddRecipe.css";
-// import './w3style.css';
-// import PageTitle from '../../common/Title/PageTitle';
+import "./AddRecipe.css";
+import './w3style.css';
+import axios from 'axios';
+import PageTitle from '../../common/PageTitle';
 
 const url = "http://localhost:4001/api/fundraiser";
 
@@ -13,24 +14,29 @@ class AddFundraiser extends Component {
       title: '',
       address: '',
       category: '',
-      namePost: '',
+      name: '',
       information: '',
       donate: '',
       image: null,
+      isAuthenticated: false,
+      token: ''
     };
   }
  
 
-//   fetchData(){    
-//     fetch(url, {mode: "cors"})
-//         .then(response => response.json())
-//         .then(json => this.setState({fundraiser: json}))
-//         .catch(err => console.log(err))                     
-//   }
+  fetchData(){    
+    fetch("http://localhost:4001/api/fundraiser")
+        .then(response => response.json())
+        .then(json => this.setState({fundraiser: json}))                  
+  }
 
-//   componentDidMount(){
-//     this.fetchData();
-//   }
+  componentDidMount(){
+    this.fetchData();
+  }
+  componentWillMount(){
+    this.setState({isAuthenticated: window.sessionStorage.getItem('isAuthenticated')}, () => console.log(this.state.isAuthenticated))
+    this.setState({token: window.sessionStorage.getItem('token')})
+}
   handleChange(e) {
     e.preventDefault();
     var obj = {}
@@ -48,21 +54,21 @@ class AddFundraiser extends Component {
     let formData = new FormData();
     let image = document.querySelector('#image');
     formData.append("title", this.state.title);
-    formData.append("category", this.state.category);
-    formData.append("namePost", this.state.namePost)
+    formData.append("fundType", this.state.fundType);
+    formData.append("name", this.state.name)
     formData.append("address", this.state.address)
     formData.append("donate", this.state.donate)
     formData.append("information", this.state.information)
     formData.append("image", image.files[0])
     e.preventDefault();
-      fetch(url, {
-        mode: 'cors',
+    axios({
+        url: url,
         method: 'POST',
         headers: {
-          "Authorization" : `Bearer ${this.state.token}`,
+          'x-access-token': this.state.token,
           'Content-Type': 'multipart/form-data',
         },
-        body: formData
+        data: formData
       })   
       .then(() => {
         alert('create recipe successfully')
@@ -77,18 +83,13 @@ class AddFundraiser extends Component {
         }
     });
   }
- 
-  // addNewRecipe = () => {
-  //   this.setState({title: '', difficulty: '', body: '', ingredients: '', guide: '', image: null})
-  // }
-
   render() {
     return (
      <>
-     {/* <PageTitle 
+     <PageTitle 
 	    			title="Add a post"
 	    			subTitle="Recipe #25102589748"
-	    		/> */}
+	    		/>
     {/* //Page Container */}
       <div className="w3-light-grey">
       <div className="w3-content w3-margin-top" style={{maxWidth:1400}}>
@@ -117,20 +118,20 @@ class AddFundraiser extends Component {
 
                             <label className="label-name">
                               <span className="content-name">
-                                Food Name
+                              title
                               </span>
                             </label>
                       </div>  
                       <div className="w3-container w3-padding">
                             <div className="col-40">
                                 <label >
-                                  Level of Difficulty
+                                  Fund of Type
                                 </label>
                               </div>
                               <div className="col-60">
-                                <select  id="category" name="category" 
+                                <select  id="fundType" name="fundType" 
                                 required
-                                value={this.state.category}
+                                value={this.state.fundType}
                                 onChange={this.handleChange.bind(this)}>
                                     <option>Medical</option>
                                     <option>Food</option>
@@ -154,7 +155,7 @@ class AddFundraiser extends Component {
                         <label  className="label-name">    
                             <span className="content-name">
                               <i className="fa fa-pencil-square-o w3-padding"></i>
-                              Description
+                              address
                             </span>
                         </label>
                     </div>
@@ -163,17 +164,17 @@ class AddFundraiser extends Component {
                     <div className="textarea-section">
                         <textarea
                           type="text"
-                          name="namePost"
+                          name="name"
                           placeholder="Please Write Food Description..."
                           autoComplete="off" required
-                          id="namePost"
-                          value={this.state.namePost}
+                          id="name"
+                          value={this.state.name}
                           onChange={this.handleChange.bind(this)}
                           />
                         <label  className="label-name">    
                             <span className="content-name">
                               <i className="fa fa-pencil-square-o w3-padding"></i>
-                              Description
+                              name
                             </span>
                         </label>
                     </div>
@@ -223,7 +224,7 @@ class AddFundraiser extends Component {
                           <label  className="label-name" style={{bottom:'90%'}}>    
                               <span className="content-name">
                                 <i className="fa fa-glass w3-padding"></i>
-                                Recipe 
+                                donate 
                               </span>
                           </label>
                       </div>

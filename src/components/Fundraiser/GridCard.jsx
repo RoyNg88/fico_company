@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -20,26 +21,31 @@ const useStyles = makeStyles({
 const left = {
   textAlign: 'left',
 }
+const right = {
+  textAlign: 'right',
+}
 
-export default function GridCard() {
+export default function GridCard(props) {
   const classes = useStyles();
-
+  
   return (
-    <div>
+    
+    <div className="grid-container">
+      {props.projects.map(p => (
       <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image="https://yt3.ggpht.com/ytc/AKedOLTcGcQHpQeWfBIeiYS2ojAGnjVCtZZ4PrJg1vjUkA=s900-c-k-c0x00ffffff-no-rj"
-            title="EFAP"
-          />
+        <CardActionArea key={p.id}>
+          <CardMedia>
+          <img src={'http://localhost:4001' + p.image} alt="Fimage" style={{width: 'auto'}}/>
+          </CardMedia>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2" style={left}>
-              <b>EFAP - International School of Information</b>
+            <Typography gutterBottom variant="h4" component="h2" style={left}>
+              <b>{p.title}</b>
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p" style={right}>
+              <b>{p.donate}</b>
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p" style={left}>
-            The international strategy is at the core of our curriculums, it is a number one priority 
-            to give the students the possibility to travel around the world during their studies.
+            {p.information}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -49,6 +55,7 @@ export default function GridCard() {
           </Button>
         </CardActions>
       </Card>
+      ))}
     </div>
   )
 }

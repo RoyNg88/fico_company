@@ -80,7 +80,7 @@ router.get('/:id', function (req, res) {
 router.post('/', auth ,upload.single('image'), (req, res) => {  
     const path = "/" + req.file.path.split("\\").join("/");
     console.log(req.file);
-    sharp(req.file.path).resize(256, 256).toFile('./uploads/fundraisers/' + '256x256-' + req.file.filename, (err) => {
+    sharp(req.file.path).resize(356, 256).toFile('./uploads/fundraisers/' + '356x256-' + req.file.filename, (err) => {
         if (err) {
             console.error('Sharp Error: ', err)
         }
@@ -130,7 +130,7 @@ router.put('/:id', auth, upload.single('image'), (req, res) => {
                 name: req.body.name,
                 address: req.body.address,
                 information: req.body.information,
-                category: req.body.category,
+                fundType: req.body.fundType,
                 donate: req.body.donate,
             },
             { new: true })

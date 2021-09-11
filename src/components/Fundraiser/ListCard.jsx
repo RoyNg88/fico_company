@@ -22,31 +22,32 @@ const left = {
   textAlign: 'left',
 }
 
-export default function ListCard() {
+export default function ListCard(props) {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className="grid-list">
+      {props.projects.map(p => (
       <Card className={classes.root}>
-        <Row>
+        <Row key={p.id}>
           <Col xs={3}>
             <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="https://yt3.ggpht.com/ytc/AKedOLTcGcQHpQeWfBIeiYS2ojAGnjVCtZZ4PrJg1vjUkA=s900-c-k-c0x00ffffff-no-rj"
-                title="EFAP"
-              />
+              <CardMedia>
+                <img src={'http://localhost:4001' + p.image} alt="Fimage" style={{width: 'auto'}}/>
+              </CardMedia>
             </CardActionArea>
           </Col>
           <Col xs={9}>
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2" style={left}>
-                  <b>EFAP - International School of Information</b>
+                  <b>{p.title}</b>
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p" style={left}>
-                The international strategy is at the core of our curriculums, it is a number one priority 
-                to give the students the possibility to travel around the world during their studies.
+              <b>{p.donate}</b>
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p" style={left}>
+                {p.information}
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -58,6 +59,7 @@ export default function ListCard() {
           </Col>
         </Row>
       </Card>
+       ))}
     </div>
   )
 }
