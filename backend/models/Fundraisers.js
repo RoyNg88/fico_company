@@ -5,8 +5,8 @@ const express = require('express');
 const Fundraiser = require('../schemas/fundraiser');
 const router = express.Router();
 const multer = require('multer');
-const fs = require('fs')
-const sharp = require('sharp')
+const fs = require('fs');
+const sharp = require('sharp');
 const auth = require("../middleware/verifyToken");
 
 
@@ -65,8 +65,8 @@ router.get('/',  (req, res) => {
 })
 
 router.get('/:id', function (req, res) {
-    Fundraiser.findOne({id: req.params.id}, function (err, fundraiser) {
-        if(fundraiser){
+    Fundraiser.findById(req.params.id, function(err, fundraiser){
+        if (fundraiser){
         res.send(fundraiser)
         }
         else{
@@ -80,17 +80,17 @@ router.get('/:id', function (req, res) {
 router.post('/', auth ,upload.single('image'), (req, res) => {  
     const path = "/" + req.file.path.split("\\").join("/");
     console.log(req.file);
-    sharp(req.file.path).resize(356, 256).toFile('./uploads/fundraisers/' + '356x256-' + req.file.filename, (err) => {
-        if (err) {
-            console.error('Sharp Error: ', err)
-        }
-        console.log('Resize successfully');
-        fs.unlinkSync('.' + path)
-    });
+    // sharp(req.file.path).resize(356, 256).toFile('./uploads/fundraisers/' + req.file.filename, (err) => {
+    //     if (err) {
+    //         console.error('Sharp Error: ', err)
+    //     }
+    //     console.log('Resize successfully');
+    //     fs.unlinkSync('.' + path)
+    // });
     console.log(path);
     Fundraiser.create({
         ...req.body,
-        image: path.replace(req.file.filename, '256x256-' + req.file.filename)
+        image: path
     })
     // .populate('postedBy')
     .then(doc => res.send(doc))
@@ -98,53 +98,42 @@ router.post('/', auth ,upload.single('image'), (req, res) => {
 })
 
 // UPDATE Fundraiser
-
-router.put('/:id', auth, upload.single('image'), (req, res) => {
+router.put('/:id', auth, upload.single('image'), (req, res, next) => {
     if (req.file) {
-        if (req.body.id) {
-            let path = "/" + req.file.path.split("\\").join("/");
-            sharp(req.file.path).resize(256, 256).toFile('./uploads/fundraiser/' + '256x256-' + req.file.filename, (err) => {
-                if (err) {
-                    console.log('Sharp Error: ', err)
-                }
-                console.log('Resize successfully');
-                fs.unlinkSync('.' + path)
-            });
+            const path = "/" + req.file.path.split("\\").join("/");
+            // sharp(req.file.path).resize(256, 256).toFile('./uploads/fundraiser/' + req.file.filename, (err) => {
+            //     if (err) {
+            //         console.error('Sharp Error: ', err)
+            //     }
+            //     console.log('Resize successfully');
+            //     fs.unlinkSync('.' + path)
+            // });
             console.log(path);
-            Fundraiser.findOneAndUpdate(
-                { id: req.params.id },
-                {
+            Fundraiser.findByIdAndUpdate(req.params.id,
+                {   
                     ...req.body,
-                    image: path.replace(req.file.filename, '256x256-' + req.file.filename)
+                    image: path
                 },
                 { new: true }
             )
                 .then(doc => res.send(doc))
                 .catch(err => res.send(err))
-        } 
+        // } 
     } else {
-        Fundraiser.findOneAndUpdate(
-            { id: req.params.id },
+        Fundraiser.findByIdAndUpdate(req.params.id,
             {
-                title: req.body.title,
-                name: req.body.name,
-                address: req.body.address,
-                information: req.body.information,
-                fundType: req.body.fundType,
-                donate: req.body.donate,
+                ...req.body,
             },
             { new: true })
             .then(doc => res.send(doc))
             .catch(err => res.send(err))
     }
-
 })
-
 // DELETE Fundraiser
 
 router.delete('/:id', auth, (req, res) => {
     
-    Fundraiser.findOne({ id: req.params.id }, (err, fundraiser) => {
+    Fundraiser.findById(req.params.id, (err, fundraiser) => {
         if (err) {
             handleError(err);
         } else if (fundraiser.image) {
@@ -154,8 +143,7 @@ router.delete('/:id', auth, (req, res) => {
         }
     })
 
-    Fundraiser.deleteOne({ id: req.params.id })
-        // .populate('postedBy')
+    Fundraiser.deleteOne({id: req.params.id})
         .exec((err, docs) => {
             if (err !== null) {
                 console.log(`Error in delete 1 fundraiser: ${err}`);
@@ -172,5 +160,7 @@ router.get('/search', search)
 /* ----------------------------------------------------
                 END: Router
 ---------------------------------------------------- */
-
+function handleError(err){
+    console.log(err)
+ }
 module.exports = router;

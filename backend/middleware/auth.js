@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
   const token = jwt.sign({_id: user._id}, process.env.TOKEN_KEY)
   // res.status(200).header('auth-token', token).send(token)
 
-  res.status(200).json({auth: true, token: token, result: user.name, isAdmin: user.isAdmin})
+  res.status(200).json({auth: true, token: token, result: user.name, id: user.id, isAdmin: user.isAdmin})
 })
 
 // Logout

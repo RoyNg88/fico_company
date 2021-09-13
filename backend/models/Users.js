@@ -4,7 +4,7 @@ const app = require('express');
 const router = app.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../schemas/user');
-const fs = require('fs')
+const fs = require('fs');
 const auth = require("../middleware/verifyToken");
 const sharp = require('sharp');
 const multer = require('multer');
@@ -54,9 +54,9 @@ router.get('/', auth, (req, res, next) => {
 })
 
 
-router.get('/:id', auth, (req, res, next) => {
-   User.find({ _id: req.query.s }, (err, user) => {
-    if (user){
+router.get('/:id', auth, (req,res) => {
+    User.findById(req.params.id, function(err, user){
+        if (user){
         res.send(user)
         }
         else{
@@ -65,10 +65,9 @@ router.get('/:id', auth, (req, res, next) => {
     })
 })
 
-
 //DELETE
 router.delete('/:id', auth, (req, res) => { 
-    User.findOne({ id: req.params.id }, (err, user) => {
+    User.findById(req.params.id, (err, user) => {
         if (err) {
             handleError(err);
         } else if (user.image) {
@@ -78,8 +77,7 @@ router.delete('/:id', auth, (req, res) => {
         }
     })
 
-    User.deleteOne({ id: req.params.id })
-        // .populate('postedBy')
+    User.findByIdAndDelete(req.params.id)
         .exec((err, docs) => {
             if (err !== null) {
                 console.log(`Error in delete 1 user: ${err}`);
@@ -95,32 +93,35 @@ router.put('/:id', auth, upload.single('profilePicture'), async (req, res, next)
     let salt = await bcrypt.genSalt(10);
     let encryptedPass = await bcrypt.hash(req.body.password, salt);
     if (req.file) {
-        if (req.body.id) {
-            let path = "/" + req.file.path.split("\\").join("/");
+            const path = "/" + req.file.path.split("\\").join("/");
             sharp(req.file.path).resize(256, 256).toFile('./uploads/users/' + '256x256-' + req.file.filename, (err) => {
                 if (err) {
-                    console.log('Sharp Error: ', err)
+                    console.error('Sharp Error: ', err)
                 }
                 console.log('Resize successfully');
                 fs.unlinkSync('.' + path)
             });
             console.log(path);
-            User.findOneAndUpdate(
-                { id: req.params.id },
-                {
-                    ...req.body,
+            User.findByIdAndUpdate(req.params.id,
+                {   
+                    name: req.body.name,
+                    dob: req.body.dob,
+                    location: req.body.location,
+                    email: req.body.email,
+                    password: encryptedPass,
                     profilePicture: path.replace(req.file.filename, '256x256-' + req.file.filename)
                 },
                 { new: true }
             )
                 .then(doc => res.send(doc))
                 .catch(err => res.send(err))
-        } 
+        // } 
     } else {
-        User.findOneAndUpdate(
-            { id: req.params.id },
+        User.findByIdAndUpdate(req.params.id,
             {
                 name: req.body.name,
+                dob: req.body.dob,
+                location: req.body.location,
                 email: req.body.email,
                 password: encryptedPass,
             },

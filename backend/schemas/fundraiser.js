@@ -11,7 +11,8 @@ const FundraiserSchema = new mongoose.Schema({
     address:  String,
     donate: String,
     information: String,
-    image:  String,
+    image:  {type: String,
+        required: false},
     datePosted: {
         type: Date,
         default: new Date()
