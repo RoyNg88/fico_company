@@ -35,6 +35,7 @@ login(event){
            alert('Login admin successfully')
            window.sessionStorage.setItem('isAuthenticated', true)
            window.sessionStorage.setItem('token', data.token)
+           window.sessionStorage.setItem('id', data.id)
            this.props.history.push('/admin')
            window.location.reload()
        }
@@ -42,6 +43,7 @@ login(event){
          alert('Login successfully')
          window.sessionStorage.setItem('isAuthenticated', true)
          window.sessionStorage.setItem('token', data.token)
+         window.sessionStorage.setItem('id', data.id)
          this.props.history.push('/')
          window.location.reload()
      }
