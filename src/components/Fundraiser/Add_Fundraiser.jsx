@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./AddRecipe.css";
+import "./AddFundraiser.css";
 import './w3style.css';
 import axios from 'axios';
 import PageTitle from '../../common/PageTitle';
@@ -88,7 +88,6 @@ class AddFundraiser extends Component {
      <>
      <PageTitle 
 	    			title="Add a post"
-	    			subTitle="Recipe #25102589748"
 	    		/>
     {/* //Page Container */}
       <div className="w3-light-grey">
@@ -118,7 +117,7 @@ class AddFundraiser extends Component {
 
                             <label className="label-name">
                               <span className="content-name">
-                              title
+                              Title
                               </span>
                             </label>
                       </div>  
@@ -145,27 +144,8 @@ class AddFundraiser extends Component {
                     <div className="textarea-section">
                         <textarea
                           type="text"
-                          name="address"
-                          placeholder="Please Write Food Description..."
-                          autoComplete="off" required
-                          id="address"
-                          value={this.state.address}
-                          onChange={this.handleChange.bind(this)}
-                          />
-                        <label  className="label-name">    
-                            <span className="content-name">
-                              <i className="fa fa-pencil-square-o w3-padding"></i>
-                              address
-                            </span>
-                        </label>
-                    </div>
-                  </div>
-                  <div className=" w3-container w3-card w3-white w3-margin-top">
-                    <div className="textarea-section">
-                        <textarea
-                          type="text"
                           name="name"
-                          placeholder="Please Write Food Description..."
+                          placeholder="Name of the person in need of aid"
                           autoComplete="off" required
                           id="name"
                           value={this.state.name}
@@ -174,7 +154,26 @@ class AddFundraiser extends Component {
                         <label  className="label-name">    
                             <span className="content-name">
                               <i className="fa fa-pencil-square-o w3-padding"></i>
-                              name
+                              Recipient
+                            </span>
+                        </label>
+                    </div>
+                  </div>
+                  <div className=" w3-container w3-card w3-white w3-margin-top">
+                    <div className="textarea-section">
+                        <textarea
+                          type="text"
+                          name="donate"
+                          placeholder="10.000.000"
+                          autoComplete="off" required
+                          id="donate"
+                          value={this.state.donate}
+                          onChange={this.handleChange.bind(this)}
+                          />
+                        <label  className="label-name">    
+                            <span className="content-name">
+                              <i className="fa fa-pencil-square-o w3-padding"></i>
+                              Donate
                             </span>
                         </label>
                     </div>
@@ -195,17 +194,17 @@ class AddFundraiser extends Component {
                     <div className="textarea-section">
                           <textarea
                             type="text"
-                            name="information"
-                            id="information"
-                            placeholder="Please Write information here..."
+                            name="address"
+                            id="address"
+                            placeholder="Please Write address here..."
                             autoComplete="off" required
-                            value={this.state.information}
+                            value={this.state.address}
                             onChange={this.handleChange.bind(this)}
                             />
                           <label className="label-name" >    
                               <span className="content-name">
                                 <i className="fa fa-shopping-basket w3-padding"></i>
-                                information
+                                Address
                               </span>
                           </label>
                       </div>
@@ -214,17 +213,17 @@ class AddFundraiser extends Component {
                     <div className="textarea-section" style={{height: 500}}>
                           <textarea
                             type="text"
-                            name="donate"
-                            placeholder="Please Write The Recipe here..."
+                            name="information"
+                            placeholder="Please Write The Info here..."
                             autoComplete="off" required
-                            value={this.state.donate}
-                            id="donate"
+                            value={this.state.information}
+                            id="information"
                             onChange={this.handleChange.bind(this)}
                             />
                           <label  className="label-name" style={{bottom:'90%'}}>    
                               <span className="content-name">
                                 <i className="fa fa-glass w3-padding"></i>
-                                donate 
+                                Information 
                               </span>
                           </label>
                       </div>
