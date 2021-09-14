@@ -46,7 +46,7 @@ const upload = multer({
 ---------------------------------------------------- */
 
 // GET
-router.get('/', auth, (req, res, next) => {
+router.get('/', (req, res, next) => {
    User.find({}, (err, users) => {
       if (err) return next(err);
       res.send(users);
@@ -77,7 +77,7 @@ router.delete('/:id', auth, (req, res) => {
         }
     })
 
-    User.findByIdAndDelete(req.params.id)
+    User.deleteOne(req.params.id)
         .exec((err, docs) => {
             if (err !== null) {
                 console.log(`Error in delete 1 user: ${err}`);

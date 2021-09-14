@@ -80,13 +80,6 @@ router.get('/:id', function (req, res) {
 router.post('/', auth ,upload.single('image'), (req, res) => {  
     const path = "/" + req.file.path.split("\\").join("/");
     console.log(req.file);
-    // sharp(req.file.path).resize(356, 256).toFile('./uploads/fundraisers/' + req.file.filename, (err) => {
-    //     if (err) {
-    //         console.error('Sharp Error: ', err)
-    //     }
-    //     console.log('Resize successfully');
-    //     fs.unlinkSync('.' + path)
-    // });
     console.log(path);
     Fundraiser.create({
         ...req.body,
@@ -101,13 +94,6 @@ router.post('/', auth ,upload.single('image'), (req, res) => {
 router.put('/:id', auth, upload.single('image'), (req, res, next) => {
     if (req.file) {
             const path = "/" + req.file.path.split("\\").join("/");
-            // sharp(req.file.path).resize(256, 256).toFile('./uploads/fundraiser/' + req.file.filename, (err) => {
-            //     if (err) {
-            //         console.error('Sharp Error: ', err)
-            //     }
-            //     console.log('Resize successfully');
-            //     fs.unlinkSync('.' + path)
-            // });
             console.log(path);
             Fundraiser.findByIdAndUpdate(req.params.id,
                 {   
@@ -132,8 +118,7 @@ router.put('/:id', auth, upload.single('image'), (req, res, next) => {
 // DELETE Fundraiser
 
 router.delete('/:id', auth, (req, res) => {
-    
-    Fundraiser.findById(req.params.id, (err, fundraiser) => {
+    Fundraiser.findOne({id: req.params.id}, (err, fundraiser) => {
         if (err) {
             handleError(err);
         } else if (fundraiser.image) {
