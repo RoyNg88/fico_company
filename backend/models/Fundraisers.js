@@ -123,12 +123,15 @@ router.delete('/:id', auth, (req, res) => {
             handleError(err);
         } else if (fundraiser.image) {
             if (typeof fundraiser.image !== 'undefined' && fundraiser.image !== '') {
-                fs.unlinkSync('.' + fundraiser.image);
+                // fs.unlinkSync('.' + fundraiser.image);
             }
         }
     })
 
-    Fundraiser.deleteOne({id: req.params.id})
+    Fundraiser.findByIdAndDelete(req.params.id,
+        {   
+            ...req.body,
+        },)
         .exec((err, docs) => {
             if (err !== null) {
                 console.log(`Error in delete 1 fundraiser: ${err}`);

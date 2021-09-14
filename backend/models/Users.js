@@ -77,7 +77,10 @@ router.delete('/:id', auth, (req, res) => {
         }
     })
 
-    User.deleteOne(req.params.id)
+    User.findByIdAndDelete(req.params.id,
+        {   
+            ...req.body,
+        })
         .exec((err, docs) => {
             if (err !== null) {
                 console.log(`Error in delete 1 user: ${err}`);
@@ -131,6 +134,28 @@ router.put('/:id', auth, upload.single('profilePicture'), async (req, res, next)
     }
 })
 
+// Update Approve Admin
+// router.put("/:id/status", (req, res) => {
+//     User.findById(req.params.id, (err, foundUser) => {
+//         console.log(foundUser.isAdmin);
+//         if (err) {
+//             console.log(err);
+//         }
+//         User.update({ id: foundUser.id }, { $set: { isAdmin: !foundUser.isAdmin } }, (err2, result) => {
+//             console.log(err, result);
+//         });
+//     });
+// });
+router.put("/:id/status", (req, res) => {
+    User.findById(req.params.id, (err, foundUser) => {
+        console.log(foundUser.isAdmin);
+        if (err) {
+            console.log(err);
+        } else if (foundUser.isAdmin === false) {
+            User.updateOne({id: req.params.id}, {$set: {isAdmin: true}});
+        } 
+    });
+});
 // CREATE
 router.post('/', auth, async (req, res, next) => {
    try {
