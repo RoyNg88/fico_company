@@ -32,10 +32,10 @@ export default function GridCard(props) {
     
     <div className="grid-container">
       {props.projects.map(p => (
-      <Card className={classes.root}>
-        <CardActionArea key={p.id}>
+      <Card className={classes.root} key={p.id}>
+        <CardActionArea>
           <CardMedia>
-          <img src={'http://localhost:4001' + p.image} alt="Fimage" style={{width: 'auto'}}/>
+          <img src={'http://localhost:4001' + p.image} alt="Fimage" style={{width: '356px', height: '220px', float: 'left', padding: '10px'}}/>
           </CardMedia>
           <CardContent>
             <Typography gutterBottom variant="h4" component="h2" style={left}>

@@ -33,7 +33,7 @@ export default function ListCard(props) {
           <Col xs={3}>
             <CardActionArea>
               <CardMedia>
-                <img src={'http://localhost:4001' + p.image} alt="Fimage" style={{width: 'auto'}}/>
+                <img src={'http://localhost:4001' + p.image} alt="Fimage" style={{width: '283px', height: '152px'}}/>
               </CardMedia>
             </CardActionArea>
           </Col>

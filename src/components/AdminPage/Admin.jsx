@@ -2,14 +2,52 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import {Switch,Route} from 'react-router-dom';
-import {NavLink } from 'react-router-dom';
+import {NavLink, Link } from 'react-router-dom';
 import {Row,Col,Container,Image} from 'react-bootstrap';
 
-
-import Login from '../SignPage/Login';
+import AddFundraiser from '../Fundraiser/Add_Fundraiser';
+import ProjectPage from '../ProjectPage/ProjectPage';
+import UserList from '../UserPage/UserList'
+import SwitchAdmin from '../UserPage/SwitchToAdmin'
 export default class Admin extends React.Component {
+   constructor(props) {
+      super(props);
+      this.state = {
+        admin: [],
+        token:'',
+        id:"",
+        name: '',
+        email: '',
+        isAuthenticated: null
+      };
+  }
+   fetchData(){    
+       fetch(`http://localhost:4001/api/user/`+ this.state.id,
+       {
+        headers: { 'x-access-token': this.state.token}
+      })
+            .then(response => response.json())
+            .then(json =>this.setState({ admin: json }))
+            .catch(err => console.log(err))                     
+        }
 
+   componentDidMount() {
+    this.fetchData()
+  }
 
+   componentWillMount(){
+      this.setState({isAuthenticated: window.sessionStorage.getItem('isAuthenticated')}, () => console.log(this.state.isAuthenticated))
+      this.setState({token: window.sessionStorage.getItem('token')})
+      this.setState({id: window.sessionStorage.getItem('id')})
+  }
+   logout(event){
+		event.preventDefault();
+        window.sessionStorage.setItem("isAuthenticated", false);
+        this.setState({isAuthenticated: window.sessionStorage.getItem('authenticated')})
+        window.sessionStorage.removeItem("token");
+        window.sessionStorage.removeItem("id");
+    
+	}
 render(){
     return(
         <>
@@ -22,39 +60,39 @@ render(){
                              <div className="osahan-user-media">
                                 <Image className="mb-3 rounded-pill shadow-sm mt-1" src="https://www.kindpng.com/picc/m/699-6997452_administrator-network-icons-system-avatar-computer-transparent-admin.png" alt="" />
                                 <div className="osahan-user-media-body">
-                                   <h6 className="mb-2">MrQuangTeo</h6>
-                                   <p>admin@gmail.com</p>
+                                   <h6 className="mb-2">{this.state.admin.name}</h6>
+                                   <p>{this.state.admin.email}</p>
                                 </div>
                              </div>
                           </div>
                        </div>
                        <ul className="nav flex-column border-0 pt-4 pl-4 pb-4">
                           <li className="nav-item">
-                             <NavLink className="nav-link" activeClassName="active" exact to="/myaccount/orders"> Add Fundraiser</NavLink>
+                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/addfundraiser"> Add Fundraiser</NavLink>
                           </li>
                           <li className="nav-item">
-                             <NavLink className="nav-link" activeClassName="active" exact to="/myaccount/offers">List Fundraisers Approval</NavLink>
+                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/approveadmin">Approve Admin authorization</NavLink>
                           </li>
                           <li className="nav-item">
-                             <NavLink className="nav-link" activeClassName="active" exact to="/myaccount/favourites"> List Fundraisers</NavLink>
+                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/projects"> List Fundraisers</NavLink>
                           </li>
                           <li className="nav-item">
-                             <NavLink className="nav-link" activeClassName="active" exact to="/myaccount/payments"> List Users</NavLink>
-                          </li>
-                          <li className="nav-item">
-                             <NavLink className="nav-link" activeClassName="active" exact to="/myaccount/addresses"> List Admins</NavLink>
+                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/userslist"> List Users/Admin</NavLink>
                           </li>
                        </ul>
                        <ul className="nav flex-column border-0 pt-4 pl-4 pb-4">
                        <li className="nav-item">
-                             <NavLink className="nav-link" activeClassName="active" exact to="/myaccount/orders"> Log out</NavLink>
+                             <Link className="nav-link" activeClassName="active" exact to="/login" onClick={this.logout.bind(this)}> Log out</Link>
                           </li>
                        </ul>
                     </div>
                  </Col>
                  <Col md={9}>
                   <Switch>
-                    <Route path="/login" exact component={Login} />
+                  <Route path="/admin/addfundraiser" exact component={AddFundraiser}/>
+                    <Route path="/admin/projects" exact component={ProjectPage} />
+                    <Route path="/admin/userslist" exact component={UserList} />
+                    <Route path="/admin/approveadmin" exact component={SwitchAdmin} />
                   </Switch>
                  </Col>
               </Row>
