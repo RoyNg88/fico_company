@@ -47,6 +47,7 @@ export default class Admin extends React.Component {
         this.setState({isAuthenticated: window.sessionStorage.getItem('authenticated')})
         window.sessionStorage.removeItem("token");
         window.sessionStorage.removeItem("id");
+        this.props.history.push('/login')
     
 	}
 render(){
@@ -83,7 +84,7 @@ render(){
                        </ul>
                        <ul className="nav flex-column border-0 pt-4 pl-4 pb-4">
                        <li className="nav-item">
-                             <Link className="nav-link" activeClassName="active" exact to="/login" onClick={this.logout.bind(this)}> Log out</Link>
+                             <NavLink className="nav-link" activeClassName="active"  to="/login" onClick={this.logout.bind(this)}> Log out</NavLink>
                           </li>
                        </ul>
                     </div>

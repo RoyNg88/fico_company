@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import './Search.css';
 import { Button, Form, InputGroup, Col } from 'react-bootstrap';
@@ -15,7 +16,6 @@ const Search = React.memo(props => {
             <InputGroup className="mb-3">
               <InputGroup.Text><FaSearch/></InputGroup.Text>
               <Form.Control type="text" placeholder="Search" onChange={event => setFilter(event.target.value)}/>
-              {/* <Button><FaSearch/></Button> */}
             </InputGroup>
           </Col> 
           <Col xs={2} md={2}>
@@ -27,7 +27,7 @@ const Search = React.memo(props => {
             </Form.Control>
           </Col>
           <Col xs={1}>
-            <Button style={{backgroundColor: '#18A0FB'}}>Search  <FaSearch/></Button>
+            <Button style={{backgroundColor: '#18A0FB'}}>Search</Button>
           </Col>   
     </>
   );
