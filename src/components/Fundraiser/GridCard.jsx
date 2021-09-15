@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from "react";
-import axios from 'axios'
+import React from "react";
+import {Link} from 'react-router-dom';
+import {ProgressBar} from 'react-bootstrap';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -27,12 +28,14 @@ const right = {
 
 export default function GridCard(props) {
   const classes = useStyles();
+
   
   return (
     
     <div className="grid-container">
-      {props.projects.map(p => (
-      <Card className={classes.root} key={p.id}>
+      {props.fundraiser.map((p) => (
+        <Link to={/fundraisers/ + p._id} key={p._id}>
+      <Card className={classes.root}>
         <CardActionArea>
           <CardMedia>
           <img src={'http://localhost:4001' + p.image} alt="Fimage" style={{width: '356px', height: '220px', float: 'left', padding: '10px'}}/>
@@ -41,11 +44,13 @@ export default function GridCard(props) {
             <Typography gutterBottom variant="h4" component="h2" style={left}>
               <b>{p.title}</b>
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p" style={right}>
-              <b>{p.donate}</b>
-            </Typography>
             <Typography variant="body2" color="textSecondary" component="p" style={left}>
-            {p.information}
+              <b>{p.information}</b>
+            </Typography>
+            <br></br>
+            <ProgressBar striped variant="info" now={p.percent} />
+            <Typography variant="body2" color="textSecondary" component="p" style={right}>
+            {p.donate} raiser of {p.donaterequire}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -55,6 +60,7 @@ export default function GridCard(props) {
           </Button>
         </CardActions>
       </Card>
+      </Link>
       ))}
     </div>
   )

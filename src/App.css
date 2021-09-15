@@ -78,9 +78,6 @@ img{
   padding: 28px 0px !important;
   margin: 0 0 0 31px;
 }
-.dropdown-cart .dropdown-menu {
-  padding-top: 0px !important;
-}
 .nav-osahan-pic {
   width: 32px;
   height: 32px;
@@ -90,43 +87,12 @@ img{
   margin: -8px 5px -6px 0;
   vertical-align: text-top;
 }
-.dropdown-cart-top {
-  border-top: 2px solid #ff3008;
-  min-width: 340px;
-}
-.dropdown-cart-top-header {
-  min-height: 107px;
-}
-.dropdown-cart-top-header .img-fluid {
-  border: 1px solid #dcdcdc;
-  border-radius: 3px;
-  float: left;
-  height: 59px;
-  padding: 3px;
-  width: 59px;
-}
-.dropdown-cart-top-header p.text-secondary {
-  font-size: 11px;
-  line-height: 24px;
-  font-weight: 600;
-}
-.dropdown-cart-top-header h6 {
-  font-size: 14px;
-}
-.food-item {
-  border: 1px solid;
-  border-radius: 2px;
-  display: inline-block;
-  font-size: 6px;
-  height: 13px;
-  line-height: 12px;
-  text-align: center;
-  width: 13px;
-}
-.dropdown-cart-top-body .food-item {
-  float: left;
-  margin: 4px 10px 0 0;
-  padding-left: 1px;
+
+.thanks {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 /* LOGIN/REGISTER */
@@ -144,7 +110,7 @@ img{
   background-position: center;
 }
 .bg-pagetitle{
-  background-image: url(https://i.pinimg.com/originals/3f/48/34/3f483410b8f2f1eb486efa7142deefc3.jpg);
+  background-image: url(https://keighleycollege.ac.uk/wp-content/uploads/2020/09/KC_0011-Apprenticeship-Web-Banner-Background-1300x600-V3.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -803,7 +769,7 @@ img{
 
  /* DONATE */
 #donate{
-  position: absolute;
+  /* position: absolute; */
   left: 66.19%;
   right: 4.11%;
   top: 45%;

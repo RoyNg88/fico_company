@@ -9,6 +9,7 @@ function ProjectPage() {
     const [projectDetail, setProjectDetail] = useState([]);
     const endPoint = "http://localhost:4001/api/fundraiser";
     const [token, setToken] = useState('');
+    const [id, setID] = useState('');
     const filterProject = useCallback((project) => {
       setProjectDetail(project);
     }, []);
@@ -20,12 +21,29 @@ function ProjectPage() {
     .then(response => response.json())
     .then(data =>
       {   data.filter(project => project.id !== id)
-          console.log(data)
+          console.log(id)
           setProjectDetail(data)
+          setID(data)
       }      
       );
 }
+   const Update = (id) => {
+        fetch( `http://localhost:4001/api/fundraiser/${id}`
+        , {
 
+          method: 'GET',
+          headers: {
+            'x-access-token': token,
+            'Content-Type': 'application/json'
+          }, 
+        })   
+          .then(response => {
+          setProjectDetail(prevProjects => [
+          prevProjects.filter(project => project._id !== id)
+          ]);
+        }).then(response => window.location.reload())
+      
+    };
 //delete data from api
     const removeProject = (id) => {
       var message = window.confirm("Do you want to delete the project?");
@@ -42,7 +60,7 @@ function ProjectPage() {
         })   
           .then(response => {
           setProjectDetail(prevProjects => [
-          prevProjects.filter(project => project.id !== id)
+          prevProjects.filter(project => project._id !== id)
           ]);
         }).then(response => window.location.reload())
       }
@@ -57,7 +75,8 @@ function ProjectPage() {
         <div>
           
           <ProjectList  projects={projectDetail}
-          onRemoveProject={removeProject}/> 
+          onRemoveProject={removeProject}
+          onUpdate={Update}/> 
         </div>
       );
 }

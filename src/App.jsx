@@ -14,9 +14,10 @@ import Footer from './common/footer';
 import NotFound from './common/NotFound';
 import Register from './components/SignPage/Register';
 import Home from './components/Homepage/Homepage.jsx';
-import AddFundraiser from './components/Fundraiser/Add_Fundraiser';
-import ProjectPage from './components/ProjectPage/ProjectPage'
+import Fundraiser from './components/Fundraiser/BrowseFundraisers';
 import ProjectForm from './components/ProjectPage/ProjectForm';
+import UserProfile from './components/UserPage/UserProfile';
+import DetailFundraiser from './components/Fundraiser/Detail_Fundraiser';
 
 export default class App extends React.Component {
   constructor(){
@@ -34,24 +35,22 @@ export default class App extends React.Component {
     
   return (
     <div>
+      
       <BrowserRouter>
         <Navbar /> 
               <Switch>
                 {/* <Route exact path="/fundraisers" component={Fundraisers}/> */}
                 <Route exact path="/" component={Home}/>
-                <Route path="/home" component={Home}/>
+                <Route path="/home" exact component={Home}/>
                 <Route path="/notfound" exact component={NotFound} />
                 <Route path="/login" component={Login}/>
-                <Route path="/register" component={Register}/>
                 <Route path="/admin" component={Admin}/>
+                <Route path="/register" component={Register}/>
                 <Route path="/aboutus" component={AboutUs}/>
-                {/* <Route path="/project" component={Project}/> */}
-                <Route path="/addfundraiser" component={AddFundraiser}/>
-                {/* <Route path="/project/:id" component={Project}/> */}
-                {/* <Route exact component={NotFound} /> */}
-                <Route path="/projects" component={ProjectPage} />
+                <Route path="/fundraiser" component={Fundraiser}/>
+                <Route path="/fundraisers/:id" exact component={DetailFundraiser}/>
                 <Route path="/projectform" component={ProjectForm} />
-                {/* <Route path="/user" component={Users}/> */}
+                <Route path="/userp" component={UserProfile}/>
               </Switch>
           <Footer />
       </BrowserRouter>

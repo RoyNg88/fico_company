@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import {ProgressBar} from 'react-bootstrap';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -28,6 +30,7 @@ export default function ListCard(props) {
   return (
     <div className="grid-list">
       {props.projects.map(p => (
+        <Link to={/fundraisers/ + p._id} key={p._id}>
       <Card className={classes.root}>
         <Row key={p.id}>
           <Col xs={3}>
@@ -44,7 +47,8 @@ export default function ListCard(props) {
                   <b>{p.title}</b>
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p" style={left}>
-              <b>{p.donate}</b>
+              <b>{p.donate} raiser of {p.donaterequire}</b>
+              <ProgressBar striped variant="info" now={p.percent} />
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p" style={left}>
                 {p.information}
@@ -59,7 +63,7 @@ export default function ListCard(props) {
           </Col>
         </Row>
       </Card>
-       ))}
+      </Link>))}
     </div>
   )
 }

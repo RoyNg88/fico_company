@@ -6,27 +6,27 @@ import {Navbar,Nav,Container,Image} from 'react-bootstrap';
 import Icofont from 'react-icofont';
 
 
-// const url = "http://localhost/api/user"
+// const url = "https://localhost:4001/api/user" 
 
 export default class NavBar extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	    //   isNavExpanded: false,
+			token:'',
 		isAuthenticated: null
 	    };
 	}
-	
-
+    
 	componentDidMount() {
-	    // document.removeEventListener('click', this.handleClick, false);
 		this.setState({isAuthenticated: sessionStorage.getItem('isAuthenticated')})
+		this.setState({token: window.sessionStorage.getItem('token')})
 	}
 	logout(event){
 		event.preventDefault();
         window.sessionStorage.setItem("isAuthenticated", false);
         this.setState({isAuthenticated: window.sessionStorage.getItem('authenticated')})
         window.sessionStorage.removeItem("token");
+		window.sessionStorage.removeItem("id");
         // window.location.reload()
     
 	}
@@ -50,17 +50,17 @@ export default class NavBar extends React.Component {
 						eventKey={2} as={NavLink} activeclassname="active" to="/aboutus">AboutUs
 						</Nav.Link>	
                         <Nav.Link title="Support" alignRight className="border-0"
-						eventKey={4} as={NavLink} activeclassname="active" to="/notfound">Support
+						eventKey={3} as={NavLink} activeclassname="active" to="/notfound">Support
 						</Nav.Link>			    
 			         </Nav>
 			      </Navbar.Collapse>
                   <Nav className="border-0">
 						{this.state.isAuthenticated &&
                         <>
-                                
-							<Nav.Link eventKey={4.1} as={NavLink} activeclassname="active" to="/UserPage/Profile"><Icofont icon='food-cart'/> Profile</Nav.Link>
+                              
+							<Nav.Link eventKey={4.1} as={NavLink} activeclassname="active" to='/userp' ><Icofont icon='food-cart'/> Profile</Nav.Link> 
+							
 							<Nav.Link eventKey={4.2} as={NavLink} activeclassname="active" to="/#" onClick={this.logout.bind(this)} ><Icofont icon='sign-out'/> Logout</Nav.Link>
-			            
                         </>
                         } 
                         {!this.state.isAuthenticated  &&<><Nav.Link eventKey={2} as={NavLink} activeclassname="active" to="/login">
@@ -72,6 +72,7 @@ export default class NavBar extends React.Component {
 			   </Container>
 			</Navbar>
 			</div>
-		);
-	}
-}
+	          )
+            }
+        }
+	

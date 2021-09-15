@@ -1,6 +1,6 @@
 import React from "react";
 import {useState, useEffect, useCallback } from 'react';
-import {useParams, useLocation } from 'react-router-dom';
+import {useParams, useLocation, Link } from 'react-router-dom';
 import { Button, Form, InputGroup, Col, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Grid from '@material-ui/core/Grid'
@@ -25,17 +25,16 @@ const load = (id) => {
   fetch(endPoint)
     .then(response => response.json())
     .then(data =>
-      {   data.filter(project => project.id !== id)
-          console.log(data)
+      {   data.filter(project => project._id !== id)
           setData(data)
       }      
       );
 }
+
 //load data automatically
 useEffect(() => {
    load()
- }, [])
-
+ }, [filterProject])
 
   const [view, setView] = useState('gridView');
 
@@ -71,7 +70,7 @@ useEffect(() => {
         <Search onloadedProjects={filterProject}/>
           <Col xs={5} md={5}>
             <div className="d-flex justify-content-end">
-              <Button variant="secondary" onClick={setListView}><IoList/> List</Button>
+              <Button variant="secondary" onClick={setListView} ><IoList/> List</Button>
               <Button variant="secondary" onClick={setGridView}><RiLayoutGridFill/> Grid</Button>
             </div>
           </Col>
@@ -83,7 +82,7 @@ useEffect(() => {
             <Container>
               <Grid container spacing={6} >
                 <Grid item xs={12}>
-                  <GridCard  projects={data}/>
+                  <GridCard  fundraiser={data}/>
                 </Grid>
               </Grid>
             </Container>

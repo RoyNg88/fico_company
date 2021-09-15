@@ -9,6 +9,7 @@ import AddFundraiser from '../Fundraiser/Add_Fundraiser';
 import ProjectPage from '../ProjectPage/ProjectPage';
 import UserList from '../UserPage/UserList'
 import SwitchAdmin from '../UserPage/SwitchToAdmin'
+import UpdateFundraiser from '../Fundraiser/Update_Fundraiser';
 export default class Admin extends React.Component {
    constructor(props) {
       super(props);
@@ -68,16 +69,16 @@ render(){
                        </div>
                        <ul className="nav flex-column border-0 pt-4 pl-4 pb-4">
                           <li className="nav-item">
-                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/addfundraiser"> Add Fundraiser</NavLink>
+                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/projects">List Fundraisers</NavLink>
+                          </li>
+                          <li className="nav-item">
+                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/addfundraiser">Add Fundraiser</NavLink>
+                          </li>
+                          <li className="nav-item">
+                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/userslist"> List Users/Admins</NavLink>
                           </li>
                           <li className="nav-item">
                              <NavLink className="nav-link" activeClassName="active" exact to="/admin/approveadmin">Approve Admin authorization</NavLink>
-                          </li>
-                          <li className="nav-item">
-                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/projects"> List Fundraisers</NavLink>
-                          </li>
-                          <li className="nav-item">
-                             <NavLink className="nav-link" activeClassName="active" exact to="/admin/userslist"> List Users/Admin</NavLink>
                           </li>
                        </ul>
                        <ul className="nav flex-column border-0 pt-4 pl-4 pb-4">
@@ -93,6 +94,7 @@ render(){
                     <Route path="/admin/projects" exact component={ProjectPage} />
                     <Route path="/admin/userslist" exact component={UserList} />
                     <Route path="/admin/approveadmin" exact component={SwitchAdmin} />
+                    <Route path="/admin//updateFundraiser/:id" exact component={UpdateFundraiser} />
                   </Switch>
                  </Col>
               </Row>
