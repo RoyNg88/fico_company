@@ -25,9 +25,9 @@ const UserApprove = props => {
               {p.isAdmin &&
               <td> Administrator</td>}
                {!p.isAdmin &&
-              <td><button onClick={props.onApprove.bind(this, p._id)}>Approve</button></td>}
+              <td><button onClick={props.onApprove.bind(this, p._id)} onChange={p=> p.isAdmin}>Approve</button></td>}
               {p.isAdmin &&
-              <td><button onClick={props.onApprove.bind(this, p._id)}>Reject</button></td>}
+              <td><button onClick={props.onApprove.bind(this, p._id)} onChange={p=> p.isAdmin}>Reject</button></td>}
             </tr>
           ))}
         </tbody>

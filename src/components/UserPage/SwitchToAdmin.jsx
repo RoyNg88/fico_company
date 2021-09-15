@@ -1,21 +1,20 @@
 import React, {useState, useEffect, useCallback} from 'react';
 
-import { Link } from 'react-router-dom';
-
 import UserApprove from './UserApprove';
 
 
 function UserList(props) {
     const [userDetail, setUserDetail] = useState([]);
     const [token, setToken] = useState('');
-    const [isAdmin, setIsToggled] =useState();
-    const toggle = useCallback(() => setIsToggled(!isAdmin));
-    const filterUser = useCallback((user) => {
+    const [isAdmin, setIsAdmin] =useState(false);
+    const [id, setID] = useState('');
+    // const [approve, setApprove] = useState('');
+    const filterProject = useCallback((user) => {
       setUserDetail(user);
     }, []);
-
     
-  //get data from api
+    
+  // get data from api
   const user = (id) => {
     fetch( `http://localhost:4001/api/user/`
     , {
@@ -25,17 +24,17 @@ function UserList(props) {
     })   
       .then(response => response.json())
       .then(userDetail => {
-            userDetail.filter(user => user.id !== id)
-            console.log(userDetail)
+        userDetail.filter(user => user.id !== id)
             setUserDetail(userDetail)
+            console.log(userDetail)
+            setID(userDetail)
         }      
         );
   }
   
-  //delete data from api
-      const Approve = (id) => {
+  //Approve role admin/user data from api 
+      const approve = (id) => {
         var message = window.confirm("Do you want to approve this user to admin?");
-  
         if (message){
           fetch( `http://localhost:4001/api/user/${id}/status`
           , {
@@ -47,21 +46,22 @@ function UserList(props) {
           })   
           .then(response => {
             setUserDetail(prevUser => [
-          prevUser.filter(user => user._id !== id)
-          ]);
-        }).then(response => window.location.reload())
+              prevUser.filter(user => user._id !== id)
+            ]);
+          }).then( window.location.reload())
       }
     };
       useEffect(() => {
         setToken(sessionStorage.getItem('token'))
         user()
-  
       }, []);
 
     return (
         <div>         
           <UserApprove users={userDetail}
-          onApprove={Approve}/> 
+             onApprove={approve}            
+          // onReject={Reject}
+          /> 
         </div>
       );
 }

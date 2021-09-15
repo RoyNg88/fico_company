@@ -135,28 +135,18 @@ router.put('/:id', auth, upload.single('profilePicture'), async (req, res, next)
 })
 
 // Update Approve Admin
-// router.put("/:id/status", (req, res) => {
-//     User.findById(req.params.id, (err, foundUser) => {
-//         console.log(foundUser.isAdmin);
-//         if (err) {
-//             console.log(err);
-//         }
-//         User.update({ id: foundUser.id }, { $set: { isAdmin: !foundUser.isAdmin } }, (err2, result) => {
-//             console.log(err, result);
-//         });
-//     });
-// });
 router.put("/:id/status", (req, res) => {
     User.findById(req.params.id, (err, foundUser) => {
         console.log(foundUser.isAdmin);
         if (err) {
             console.log(err);
-        } else if (foundUser.isAdmin === false) {
-            User.updateOne({id: req.params.id}, {$set: {isAdmin: true}});
-        } 
+        }
+        User.findByIdAndUpdate(foundUser.id, { $set: { isAdmin: !foundUser.isAdmin } }, (err2, result) => {
+            console.log(err, result);
+        });
     });
 });
-// CREATE
+
 router.post('/', auth, async (req, res, next) => {
    try {
       let salt = await bcrypt.genSalt(10);
