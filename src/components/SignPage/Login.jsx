@@ -36,7 +36,7 @@ login(event){
            window.sessionStorage.setItem('isAuthenticated', true)
            window.sessionStorage.setItem('token', data.token)
            window.sessionStorage.setItem('id', data.id)
-           this.props.history.push('/admin')
+           this.props.history.push('/admin/projects')
            window.location.reload()
        }
        else if(data.auth === true && data.isAdmin === false){

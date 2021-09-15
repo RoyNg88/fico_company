@@ -4,7 +4,7 @@ import './user.css';
 const UserApprove = props => {
   return (
     <section>
-      <h2>Loaded User/Admin List</h2>
+      <h2>Approve Admin authorization</h2>
       <table id="customers">
         <thead>
         <tr>
@@ -16,7 +16,7 @@ const UserApprove = props => {
         </thead>
         <tbody>
           {props.users.map((p) => (       
-            <tr key={p.id}>
+            <tr key={p._id}>
               <td>{p.name}</td>
               <td>{p.email}</td>
               <td>{p.dob}</td>
@@ -24,8 +24,10 @@ const UserApprove = props => {
               <td> Free Member</td>}
               {p.isAdmin &&
               <td> Administrator</td>}
-               
-              <td><button onClick={props.onApprove.bind(this, p.id)}>Approve</button></td>
+               {!p.isAdmin &&
+              <td><button onClick={props.onApprove.bind(this, p._id)}>Approve</button></td>}
+              {p.isAdmin &&
+              <td><button onClick={props.onApprove.bind(this, p._id)}>Reject</button></td>}
             </tr>
           ))}
         </tbody>

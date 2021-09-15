@@ -16,7 +16,7 @@ const User = props => {
         </thead>
         <tbody>
           {props.users.map((p) => (       
-            <tr key={p.id}>
+            <tr key={p._id}>
               <td>{p.name}</td>
               <td>{p.email}</td>
               <td>{p.dob}</td>
@@ -25,7 +25,7 @@ const User = props => {
               {p.isAdmin &&
               <td> Administrator</td>}
                
-              <td><button onClick={props.onRemoveUser.bind(this, p.id)}>Delete</button></td>
+              <td><button onClick={props.onRemoveUser.bind(this, p._id)}>Delete</button></td>
             </tr>
           ))}
         </tbody>

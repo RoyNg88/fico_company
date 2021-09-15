@@ -37,23 +37,21 @@ function UserList(props) {
         var message = window.confirm("Do you want to approve this user to admin?");
   
         if (message){
-          fetch( `http://localhost:4001/api/user/${id}`
+          fetch( `http://localhost:4001/api/user/${id}/status`
           , {
   
             method: 'PUT',
             headers: {
               'x-access-token': token,
             },
-            body: JSON.stringify({ id: id, isAdmin: isAdmin})
- 
           })   
-            .then(response => {
-              setUserDetail(prevUser => ({
-            isAdmin: !prevUser.check
-              }));
-          }).then(response => window.location.reload())
-        }
-      };
+          .then(response => {
+            setUserDetail(prevUser => [
+          prevUser.filter(user => user._id !== id)
+          ]);
+        }).then(response => window.location.reload())
+      }
+    };
       useEffect(() => {
         setToken(sessionStorage.getItem('token'))
         user()
