@@ -6,7 +6,7 @@ import PageTitle from '../../common/PageTitle';
 
 const url = "http://localhost:4001/api/fundraiser";
 
-class AddFundraiser extends Component {
+class UpdateFundraiser extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -25,7 +25,7 @@ class AddFundraiser extends Component {
  
 
   fetchData(){    
-    fetch("http://localhost:4001/api/fundraiser")
+    fetch(url + '/' + this.props.match.params.id)
         .then(response => response.json())
         .then(json => this.setState({fundraiser: json}))                  
   }
@@ -50,20 +50,21 @@ class AddFundraiser extends Component {
   })
   };
 
-  saveFundraiser(e){
+  updateHandler(e){
     let formData = new FormData();
     let image = document.querySelector('#image');
     formData.append("title", this.state.title);
     formData.append("fundType", this.state.fundType);
     formData.append("name", this.state.name)
     formData.append("address", this.state.address)
-    formData.append("donaterequire", this.state.donaterequire)
+    formData.append("donate", this.state.donate)
+    formData.append("percent", this.state.percent)
     formData.append("information", this.state.information)
     formData.append("image", image.files[0])
     e.preventDefault();
     axios({
-        url: url,
-        method: 'POST',
+        url: url + '/' + this.props.match.params.id,
+        method: 'PUT',
         headers: {
           'x-access-token': this.state.token,
           'Content-Type': 'multipart/form-data',
@@ -71,9 +72,9 @@ class AddFundraiser extends Component {
         data: formData
       })   
       .then(() => {
-        alert('create Fundraiser successfully')
+        alert('Update Fundraiser successfully')
         setTimeout(this.fetchData(), 10000)
-        window.location.reload()
+        this.props.history.push('/admin/projects')
 
 
     })
@@ -87,7 +88,7 @@ class AddFundraiser extends Component {
     return (
      <>
      <PageTitle 
-	    			title="Add a post"
+	    			title="Update a post"
 	    		/>
     {/* //Page Container */}
       <div className="w3-light-grey">
@@ -132,6 +133,7 @@ class AddFundraiser extends Component {
                                 required
                                 value={this.state.fundType}
                                 onChange={this.handleChange.bind(this)}>
+                                  <option>--Select FundType--</option>
                                     <option>Medical</option>
                                     <option>Food</option>
                                     <option>Advance</option>
@@ -163,20 +165,39 @@ class AddFundraiser extends Component {
                     <div className="textarea-section">
                         <textarea
                           type="text"
-                          name="donaterequire"
-                          placeholder="10.000.000"
+                          name="donate"
+                          placeholder="10.000"
                           autoComplete="off" required
-                          id="donaterequire"
-                          value={this.state.donaterequire}
+                          id="donate"
+                          value={this.state.donate}
                           onChange={this.handleChange.bind(this)}
                           />
                         <label  className="label-name">    
                             <span className="content-name">
                               <i className="fa fa-pencil-square-o w3-padding"></i>
-                              Fundraising goals
+                              Donated
                             </span>
                         </label>
                     </div>
+                    <div className="col-10">
+                            <label >
+                                  Progress (%)
+                            </label>
+                        </div>
+                          <div className="col-60">
+                            <input
+                            type="text"
+                            name="percent"
+                            id="percent"
+                            placeholder="1-100"
+                            autoComplete="off" 
+                            required
+                            value={this.state.percent}
+                            onChange={this.handleChange.bind(this)}
+                            />
+                        </div>
+                      <br></br>
+                      <br></br>
                   </div>
                   <div className=" w3-container w3-card w3-white w3-margin-top">
                   <div className="textarea-section" style={{height: '0px'}}>
@@ -228,7 +249,7 @@ class AddFundraiser extends Component {
                           </label>
                       </div>
                       <div className="w3-padding-16">
-                          <button type="submit" value="submit" className="w3-button w3-black" onClick={this.saveFundraiser.bind(this)}>Save Fundraiser</button>
+                          <button type="submit" value="submit" className="w3-button w3-black" onClick={this.updateHandler.bind(this)}>Save Fundraiser</button>
                       </div>
                   </div>
               </div>
@@ -243,4 +264,4 @@ class AddFundraiser extends Component {
 }
 
 
-export default AddFundraiser;
+export default UpdateFundraiser;

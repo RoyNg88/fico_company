@@ -64,8 +64,10 @@ router.get('/',  (req, res) => {
         });
 })
 
-router.get('/:id', function (req, res) {
-    Fundraiser.findById(req.params.id, function(err, fundraiser){
+router.get('/:id',  (req, res) => {
+    Fundraiser.findById(req.params.id,{
+        ...req.body,
+    } ,function(err, fundraiser){
         if (fundraiser){
         res.send(fundraiser)
         }

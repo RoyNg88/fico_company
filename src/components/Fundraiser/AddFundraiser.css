@@ -68,7 +68,6 @@
     position: relative;
     height: 300px;
     overflow: hidden;
-    border-bottom: 1px solid black
 }
 
 .textarea-section label {

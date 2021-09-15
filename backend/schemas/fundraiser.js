@@ -10,7 +10,10 @@ const FundraiserSchema = new mongoose.Schema({
     name: String,
     address:  String,
     donate: String,
+    donaterequire: String,
     information: String,
+    percent: {type: Number,
+        max: 100},
     image:  {type: String,
         required: false},
     datePosted: {
