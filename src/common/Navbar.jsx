@@ -12,8 +12,8 @@ export default class NavBar extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-			token:'',
-		isAuthenticated: null
+		token:'',
+		isAuthenticated: true,
 	    };
 	}
     
@@ -27,8 +27,7 @@ export default class NavBar extends React.Component {
         this.setState({isAuthenticated: window.sessionStorage.getItem('authenticated')})
         window.sessionStorage.removeItem("token");
 		window.sessionStorage.removeItem("id");
-		this.props.history.push('/login')
-        // window.location.reload()
+
     
 	}
 	render() {
@@ -61,7 +60,7 @@ export default class NavBar extends React.Component {
                               
 							<Nav.Link eventKey={4.1} as={NavLink} activeclassname="active" to='/userp' ><Icofont icon='food-cart'/> Profile</Nav.Link> 
 							
-							<Nav.Link eventKey={2} as={NavLink} activeclassname="active" to="/login" onClick={this.logout.bind(this)} ><Icofont icon='sign-out'/> Logout</Nav.Link>
+							<Nav.Link eventKey={4.2} as={NavLink} activeclassname="active" to="/login" onClick={this.logout.bind(this)} ><Icofont icon='sign-out'/> Logout</Nav.Link>
                         </>
                         } 
                         {!this.state.isAuthenticated  &&<><Nav.Link eventKey={2} as={NavLink} activeclassname="active" to="/login">

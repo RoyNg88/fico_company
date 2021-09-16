@@ -12,7 +12,8 @@ const ProjectList = props => {
             <th>Title</th>
             <th>Name</th>
             <th>Fund Type</th>
-            <th>Donation required</th>
+            <th>Donation </th>
+            <th>Fundraising goals</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,7 @@ const ProjectList = props => {
               <td>{p.name}</td>
               <td>{p.fundType}</td>
               <td>{p.donate}</td>
+              <td>{p.donaterequire}</td>
               
               <td>
               <Link to={/admin/ + /updateFundraiser/ + p._id} key={p._id} >

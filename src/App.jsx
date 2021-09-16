@@ -22,7 +22,7 @@ import DetailFundraiser from './components/Fundraiser/Detail_Fundraiser';
 export default class App extends React.Component {
   constructor(){
     super()
-    this.state = {authenticated: false}
+    this.state = {isAuthenticated: false}
   }
 
   componentDidMount(){
@@ -36,15 +36,18 @@ export default class App extends React.Component {
   return (
     <div>
       
-      <BrowserRouter>
-        <Navbar /> 
+  
+      {
+            (this.props.location.pathname!=='/login' && this.props.location.pathname!=='/register' && this.props.location.pathname!=='/admin/projects' && 
+            this.props.location.pathname!=='/admin/addfundraiser' && this.props.location.pathname!=='/admin/userslist' && this.props.location.pathname!=='/admin/approveadmin')    ? <Navbar/>:''
+          } 
               <Switch>
                 {/* <Route exact path="/fundraisers" component={Fundraisers}/> */}
                 <Route exact path="/" component={Home}/>
                 <Route path="/home" exact component={Home}/>
                 <Route path="/notfound" exact component={NotFound} />
                 <Route path="/login" exact component={Login}/>
-                <Route path="/admin" component={Admin}/>
+                <Route path="/admin"  component={Admin}/>
                 <Route path="/register" component={Register}/>
                 <Route path="/aboutus" component={AboutUs}/>
                 <Route path="/fundraiser" component={Fundraiser}/>
@@ -53,7 +56,7 @@ export default class App extends React.Component {
                 <Route path="/userp" component={UserProfile}/>
               </Switch>
           <Footer />
-      </BrowserRouter>
+      
     </div>
   );
   }

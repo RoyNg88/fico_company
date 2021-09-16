@@ -10,6 +10,8 @@ import ProjectPage from '../ProjectPage/ProjectPage';
 import UserList from '../UserPage/UserList'
 import SwitchAdmin from '../UserPage/SwitchToAdmin'
 import UpdateFundraiser from '../Fundraiser/Update_Fundraiser';
+import NavBarAdmin from './NavBarAdmin';
+
 export default class Admin extends React.Component {
    constructor(props) {
       super(props);
@@ -19,6 +21,7 @@ export default class Admin extends React.Component {
         id:"",
         name: '',
         email: '',
+        history: "",
         isAuthenticated: null
       };
   }
@@ -53,6 +56,7 @@ export default class Admin extends React.Component {
 render(){
     return(
         <>
+        <NavBarAdmin/>
            <Container>
               <Row>
                  <Col md={3}>
