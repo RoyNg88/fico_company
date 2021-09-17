@@ -3,6 +3,25 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+Back-end: http://localhost:4001
+How-to-use Back-end URLS:
+
+### User/Admin
+GET: /user : get all user. <br/>
+GET: /user/id : get user by id. <br/>
+POST: /user : post a user. ( requires a admin id )  <br/>
+DELETE: /user/id : delete a user by id. <br/>
+PUT: /user/id : Update a user. (File stored in route /uploads/user/[filename]) <br/>
+PUT: /user/id/status : Approve admin authentication for a user. <br/>
+
+### PROJECTS Fundraiser
+GET: /fundraiser : get all fundraiser. <br/> 
+GET: /fundraiser/id : get project by id. <br/> 
+POST: /fundraiser : post a project (require a proper admin ID)  (File stored in route /uploads/fundraisers/[filename])<br/>
+DELETE: /fundraiser/id : delete a project by id. <br/>
+PUT: /fundraiser/id : Update a project. <br/> 
+
+Front-end: http://localhost:3000
 
 In the project directory, you can run:
 # When download this projects:
