@@ -14,6 +14,25 @@ Registered users: These users can perform all the functionalities provided to gu
 Administrators: Admins have the highest authority out of all users and can perform all functionalities available to registered users plus the ability to ban/delete any users, delete any campaigns recorded and give administrator authority to any users.
 ## 3. Demo
 https://www.youtube.com/watch?v=LYmj7CSa-k8
+## 4. Team member contribution
+Nguyen Dang Quang - s3741190: Building Full Stack
+Back-end: Building CRUD Fundraiser, Upload Files/Image, Authentication(jwt) , Login/Register, Search, Approve admin for user
+Front-end: Building CRUD features User/Admin , AdminPage, Filter (get fundType, Name and Title), Add/Update a Fundraiser form, Login/Register Form
+Bui Tien Huy - s3777230: Front End Developer 
+Building DetailPage, AboutUs Page, Donate Modal, Demo website
+Write report 
+Pham Le Gia Minh - s3768661: Back End Developer
+Build CRUD User, hash Password, connect Mongoose 
+Write report
+Tran Cat Duy - s3757330: Front End Developer
+Building Card, Grid/List Page, UserProfile Page  and Deployment
+Nguyen Nguyen Phong - 3904419: Front End Developer
+Building Header, NavBar, Footer, Homepage 
+Write report, draw Use case and Class diagram
+Nguyen Truong Thinh - s3777196: Front End Developer
+Building CRUD features Fundraiser, Search, Table list Fundraiser/User, design UI for Fundraiser  
+Write report
+
 ## Available Scripts
 Back-end: http://localhost:4001
 How-to-use Back-end URLS:
