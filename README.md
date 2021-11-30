@@ -1,5 +1,5 @@
 # Technical Specifications
-	1. Technologies specification
+## 1. Technologies specification
   ![image](https://user-images.githubusercontent.com/81584616/144026224-080d6aca-8b68-4b99-8e1c-d1c4bade8929.png)
 To successfully develop and build Fico Company, we have used the following tools and technologies in our project:
 NodeJS + Express + Mongoose: NodeJS and the Express, Mongoose libraries are the main foundation for the backend and helped us to easily define RESTFUL APIs that could communicate with the MongoDB database. We chose these libraries because they are well-developed and have constantly been updated throughout the years, so they provide many convenient methods to implement the backend.
@@ -7,12 +7,12 @@ Bcrypt + JWT: These libraries are used to authenticate and validate users to ens
 ReactJS: The reputable library designed by Facebook to provide a more structured method to implement the UI using component-based approaches. With React, it is increasingly less time-consuming since some of the components can be reused within our application and the overall structure of it is easily understandable when reviewing.
 MongoDB / MongoDB Atlas: With deployment in mind, we decided to use Mongo Atlas so that we would not have to make a separate deployment for the DB or have to worry much about maintenance. Furthermore, since MongoDB is a NoSQL database, it could be easier for us in the future to scale up if given the right opportunity.
 Postman: This application provides a convenient method to test the REST APIs without having to worry about implementing the UI first. Therefore, it shortens the development time since the backend programmers can code and test even while the UI is being implemented.
-	2. Use case diagram 
+## 2. Use case diagram 
   ![image](https://user-images.githubusercontent.com/81584616/144026148-e631075f-0268-4b9d-9b84-775a8dd9345b.png)
 Guest users: Can only view/browse campaigns, but can still donate to campaigns using banking information provided on each campaign details. However, they can not create campaigns or receive notifications from the application.
 Registered users: These users can perform all the functionalities provided to guest users with the addition of being able to create and manage their own campaigns as well as receive notifications.
 Administrators: Admins have the highest authority out of all users and can perform all functionalities available to registered users plus the ability to ban/delete any users, delete any campaigns recorded and give administrator authority to any users.
-  3. Demo
+## 3. Demo
 https://www.youtube.com/watch?v=LYmj7CSa-k8
 ## Available Scripts
 Back-end: http://localhost:4001
